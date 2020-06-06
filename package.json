@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "jsdom": "^16.2.2",
+    "snake-case": "^3.0.3",
+    "xml": "^1.0.1"
+  }
+}

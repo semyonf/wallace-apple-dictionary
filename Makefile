@@ -6,8 +6,6 @@
 
 ###########################
 
-# You need to edit these values.
-
 DICT_NAME		=	"Wallace Dictionary"
 DICT_SRC_PATH		=	WallaceDictionary.xml
 CSS_PATH		=	WallaceDictionary.css
@@ -35,10 +33,12 @@ RM			=	/bin/rm
 
 ###########################
 
-all:
+all: parse
 	"$(DICT_BUILD_TOOL_BIN)/build_dict.sh" $(DICT_BUILD_OPTS) $(DICT_NAME) $(DICT_SRC_PATH) $(CSS_PATH) $(PLIST_PATH)
 	echo "Done."
 
+parse:
+	./parser.js
 
 install:
 	echo "Installing into $(DESTINATION_FOLDER)".
