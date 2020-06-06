@@ -9,9 +9,9 @@
 # You need to edit these values.
 
 DICT_NAME		=	"Wallace Dictionary"
-DICT_SRC_PATH		=	MyDictionary.xml
-CSS_PATH		=	MyDictionary.css
-PLIST_PATH		=	MyInfo.plist
+DICT_SRC_PATH		=	WallaceDictionary.xml
+CSS_PATH		=	WallaceDictionary.css
+PLIST_PATH		=	WallaceInfo.plist
 
 DICT_BUILD_OPTS		=
 # Suppress adding supplementary key.

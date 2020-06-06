@@ -61,6 +61,7 @@
 		</li>
 	</ul>
 </d:entry>
+
 <d:entry id="remington_hung" d:title="Remington-hung" d:parental-control="1">
 	<d:index d:value="Remington-hung"/>
 	<h1>Remington-hung</h1>
@@ -70,8 +71,9 @@
 		</li>
 	</ul>
 </d:entry>
+
 <d:entry id="front_back_matter" d:title="Front/Back Matter">
-	<h1><b>My Dictionary</b></h1>
+	<h1><b>Wallace Dictionary</b></h1>
 	<h2>Front/Back Matter</h2>
 	<div>
 		This is a front matter page of the sample dictionary.<br/><br/>

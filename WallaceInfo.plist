@@ -11,15 +11,15 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>DCSDictionaryCopyright</key>
-	<string>Copyright © 2007-2018 Your Company</string>
+	<string>Copyright © 2007-2018 Semyon Fomin</string>
 	<key>DCSDictionaryManufacturerName</key>
 	<string>Your Company</string>
 	<key>DCSDictionaryFrontMatterReferenceID</key>
 	<string>front_back_matter</string>
 	<key>DCSDictionaryPrefsHTML</key>
-	<string>MyDictionary_prefs.html</string>
+	<string>WallaceDictionary_prefs.html</string>
 	<key>DCSDictionaryXSL</key>
-	<string>MyDictionary.xsl</string>
+	<string>WallaceDictionary.xsl</string>
 	<key>DCSDictionaryDefaultPrefs</key>
 	<dict>
 		<key>pronunciation</key>
