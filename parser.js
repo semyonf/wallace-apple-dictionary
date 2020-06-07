@@ -1,54 +1,66 @@
 #!/usr/bin/env node
 'use strict'
 
-const https = require('https')
 const fs = require('fs')
-const jsdom = require("jsdom")
+const got = require('got')
 const xml = require('xml')
+const { JSDOM } = require("jsdom")
 const { snakeCase } = require('snake-case')
-const { JSDOM } = jsdom
 
-const url = 'https://infinitejest.wallacewiki.com/david-foster-wallace/index.php?title=Pages_3-27'
-let html = ''
+const xmlFileName = 'WallaceDictionary.xml'
+const urlTitles = [
+  "Pages_3-27", "Pages_27-63", 
+  // "Pages_63-87", "Pages_87-127", "Pages_127-156", "Pages_157-181",
+  // "Pages_181-198", "Pages_198-219", "Pages_219-258", "Pages_258-283", "Pages_283-306", "Pages_306-321",
+  // "Pages_321-342", "Pages_343-379", "Pages_380-398", "Pages_398-418", "Pages_418-442", "Pages_442-469",
+  // "Pages_470-489", "Pages_489-508", "Pages_508-530", "Pages_531-562", "Pages_563-588", "Pages_589-619",
+  // "Pages_620-651", "Pages_651-662", "Pages_663-686", "Pages_686-698", "Pages_698-716", "Pages_716-735", 
+  // "Pages_736-755", "Pages_755-785", "Pages_785-808", "Pages_809-827", "Pages_827-845", "Pages_845-876",
+  // "Pages_876-883", "Pages_883-902", "Pages_902-916", "Pages_916-934", "Pages_934-964", "Pages_964-981",
+  // "Notes_and_Errata_-_Pages_983-1079"
+]
 
-https.get(url, (res) => {
-    res.setEncoding('utf8')
-    res.on('data', (chunk) => {
-      if (res.statusCode !== 200) {
-        console.log('Status: ' + res.statusCode)
-        console.log('Body: ' + chunk)
+Promise.all(
+  urlTitles
+    .map(title => got(`https://infinitejest.wallacewiki.com/david-foster-wallace/index.php`, { searchParams: { title } })
+      .then(res => {
+        console.log(`- Downloaded html for ${title}`)
+        const definitions = parseDefinitionsFromHtml(res.body, res.url)
+        console.log(`- Extracted definitions from ${title}`)
+        
+        return definitions
+      })
+    )
+).then(definitions => {
+  const xmlString = buildXmlForDefinitions(definitions.flat())
+  console.log('- Created an XML')
+  fs.writeFileSync(xmlFileName, xmlString)
+  console.log(`- Saved to a file "${xmlFileName}"`)
+})
 
-        process.exit(1)
-      } else {
-        html += chunk
-      }
-    })
-  })
-  .on('error', (e) => {
-    console.log('Something went wrong: ' + e.message)
-
-    process.exit(1)
-  })
-  .on('close', () => {
-    console.log('Downloaded dictionaries')
-    buildXmlFromHtml(html)
-  })
-
-function buildXmlFromHtml(html) {
+function parseDefinitionsFromHtml(html, url) {
   const dom = new JSDOM(html, { url, contentType: "text/html" })
-  const definitions = [...dom.window.document.querySelectorAll('#mw-content-text>h2,p')]
-    .reduce((prev, curr) => {
-      if (curr.tagName === 'H2') {
-        prev.unshift({ name: curr.textContent, definitions: [] })
-      } else if (curr.tagName === 'P' && curr.children[0] && curr.textContent.split("\n")[1] !== '') {
-        prev[0].definitions.push({ key: curr.children[0].textContent, value: curr.textContent.split("\n")[1] })
+
+  return [...dom.window.document.querySelectorAll('#mw-content-text>h2,p')]
+    .reduce((definitionPages, htmlElement) => {
+      const { tagName, children, textContent } = htmlElement
+
+      if (tagName === 'H2') {
+        definitionPages.unshift({ name: textContent, definitions: [] })
+      } else if (tagName === 'P' && children[0] && textContent.split("\n")[1] !== '') {
+        definitionPages[0].definitions.push({ key: children[0].textContent.replace(/\.{3}|"/, ''), value: textContent.split("\n")[1] })
+      } else {
+        console.error(`Could not parse: ${textContent}`)
       }
-      return prev
-    }, []).map(page => page.definitions.map(definition => ({ ...definition, pageNum: page.name }))).flat()
 
-  console.log('Parsed dictionaries')
+      return definitionPages
+    }, [])
+    .map(page => page.definitions.map(definition => ({ ...definition, pageNum: page.name })))
+    .flat()
+}
 
-  const xmlString = xml({
+function buildXmlForDefinitions(definitions) {
+  return xml({
     'd:dictionary': [{
       _attr: {
         'xmlns': 'http://www.w3.org/1999/xhtml',
@@ -68,17 +80,13 @@ function buildXmlFromHtml(html) {
           'd:index': [{ _attr: { 'd:value': definition.key } }]
         },
         { h1: definition.key },
-          { h3: definition.pageNum },
-          {
-            ul: [{
-              li: definition.value
-            }]
-          },
+        { h3: definition.pageNum },
+        {
+          ul: [{
+            li: definition.value
+          }]
+        },
       ]
     }))]
   }, { declaration: { encoding: 'UTF-8' }, indent: true })
-
-  console.log('Created an XML')
-
-  fs.writeFileSync('WallaceDictionary.xml', xmlString)
 }
