@@ -22,7 +22,7 @@ const urlTitles = [
 
 Promise.all(
   urlTitles
-    .map(title => got(`https://infinitejest.wallacewiki.com/david-foster-wallace/index.php`, { searchParams: { title } })
+    .map(title => got(`https://infinitejest.wallacewiki.com`, { searchParams: { title } })
       .then(res => {
         console.log(`- Downloaded html for ${title}`)
         const definitions = parseDefinitionsFromHtml(res.body, res.url)
@@ -48,7 +48,7 @@ function parseDefinitionsFromHtml(html, url) {
       if (tagName === 'H2') {
         definitionPages.unshift({ name: textContent, definitions: [] })
       } else if (tagName === 'P' && children[0] && textContent.split("\n")[1] !== '') {
-        definitionPages[0].definitions.push({ key: children[0].textContent.replace(/\.{3}|"/, ''), value: textContent.split("\n")[1] })
+        definitionPages[0].definitions.push({ key: children[0].textContent.replace(/\.{3}|"/g, ''), value: textContent.split("\n")[1] })
       } else {
         console.error(`Could not parse: ${textContent}`)
       }
