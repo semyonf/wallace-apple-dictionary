@@ -9,5 +9,6 @@ Building from source:
 2. Download Apple's `Dictionary Development Kit` and place it inside `/Applications/Utilities/`
 3. Run `npm i && make && make install`
 
-![dictionary search](https://github.com/taxnuke/wallace-apple-dictionary/blob/master/ReadmeResources/screen_1.jpg)
+![dictionary search by page](https://github.com/taxnuke/wallace-apple-dictionary/blob/master/ReadmeResources/screen_1.jpg)
 ![dictionary spotlight](https://github.com/taxnuke/wallace-apple-dictionary/blob/master/ReadmeResources/screen_2.jpg)
+![dictionary search by definition](https://github.com/taxnuke/wallace-apple-dictionary/blob/master/ReadmeResources/screen_3.jpg)
