@@ -12,6 +12,8 @@
 	<string>1.0</string>
 	<key>DCSDictionaryCopyright</key>
 	<string>Copyright © 2020 Semyon Fomin</string>
+	<key>DCSDictionaryPrefsHTML</key>
+ 	<string>WallaceDictionary_prefs.html</string>
 	<key>DCSDictionaryUseSystemAppearance</key>
 	<true/>
 </dict>
