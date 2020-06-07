@@ -7,14 +7,14 @@ import xml from 'xml'
 const xmlFileName = 'WallaceDictionary.xml'
 const urlTitles = [
   "Pages_3-27", "Pages_27-63",
-  // "Pages_63-87", "Pages_87-127", "Pages_127-156", "Pages_157-181",
-  // "Pages_181-198", "Pages_198-219", "Pages_219-258", "Pages_258-283", "Pages_283-306", "Pages_306-321",
-  // "Pages_321-342", "Pages_343-379", "Pages_380-398", "Pages_398-418", "Pages_418-442", "Pages_442-469",
-  // "Pages_470-489", "Pages_489-508", "Pages_508-530", "Pages_531-562", "Pages_563-588", "Pages_589-619",
-  // "Pages_620-651", "Pages_651-662", "Pages_663-686", "Pages_686-698", "Pages_698-716", "Pages_716-735", 
-  // "Pages_736-755", "Pages_755-785", "Pages_785-808", "Pages_809-827", "Pages_827-845", "Pages_845-876",
-  // "Pages_876-883", "Pages_883-902", "Pages_902-916", "Pages_916-934", "Pages_934-964", "Pages_964-981",
-  // "Notes_and_Errata_-_Pages_983-1079"
+  "Pages_63-87", "Pages_87-127", "Pages_127-156", "Pages_157-181",
+  "Pages_181-198", "Pages_198-219", "Pages_219-258", "Pages_258-283", "Pages_283-306", "Pages_306-321",
+  "Pages_321-342", "Pages_343-379", "Pages_380-398", "Pages_398-418", "Pages_418-442", "Pages_442-469",
+  "Pages_470-489", "Pages_489-508", "Pages_508-530", "Pages_531-562", "Pages_563-588", "Pages_589-619",
+  "Pages_620-651", "Pages_651-662", "Pages_663-686", "Pages_686-698", "Pages_698-716", "Pages_716-735", 
+  "Pages_736-755", "Pages_755-785", "Pages_785-808", "Pages_809-827", "Pages_827-845", "Pages_845-876",
+  "Pages_876-883", "Pages_883-902", "Pages_902-916", "Pages_916-934", "Pages_934-964", "Pages_964-981",
+  "Notes_and_Errata_-_Pages_983-1079"
 ]
 
 Promise.all(urlTitles
@@ -78,11 +78,11 @@ function buildXmlForDefinitions(definitions: Definition[]) {
         'xmlns:d': 'http://www.apple.com/DTDs/DictionaryService-1.0.rng',
       }
     },
-    ...definitions.map(definition => ({
+    ...definitions.map((definition, index) => ({
       'd:entry': [
         {
           _attr: {
-            id: snakeCase(`${definition.key} ${definition.pageName}`),
+            id: snakeCase(`${definition.key} ${definition.pageName} ${index}`),
             'd:title': definition.key,
             'd:parental-control': 1
           },
