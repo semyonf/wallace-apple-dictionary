@@ -38,7 +38,7 @@ all: parse
 	echo "Done."
 
 parse:
-	./parser.js
+	/usr/bin/env node -r ts-node/register/transpile-only ./parser.ts
 
 install:
 	echo "Installing into $(DESTINATION_FOLDER)".
