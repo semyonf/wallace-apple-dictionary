@@ -1,4 +1,4 @@
-import { Definition, Page } from './types';
+import { Definition } from './types';
 import { JSDOM } from 'jsdom';
 
 export function parseDefinitionsFromHtml(
@@ -6,46 +6,36 @@ export function parseDefinitionsFromHtml(
   baseURL: string,
 ): Definition[] {
   const dom = new JSDOM(html, { url: baseURL, contentType: 'text/html' });
-  const xPathEvaluator = new dom.window.XPathEvaluator();
-  const nodesSnapshot = xPathEvaluator
+  const nodesSnapshot = new dom.window.XPathEvaluator()
     .createExpression('//*/*[self::p[b] or self::h2][preceding-sibling::h1]')
     .evaluate(
       dom.window.document,
       dom.window.XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
     );
 
-  const pages: Page[] = [];
-  let currentPage: Page | null = null;
+  const definitions: Definition[] = [];
+  let currentPageName: string | null = null;
 
   for (let i = 0; i < nodesSnapshot.snapshotLength; i++) {
     const node = nodesSnapshot.snapshotItem(i) as Element | null;
 
     if (!node?.textContent) {
-      throw new Error();
+      console.warn('Invalid node encountered, skipping');
+
+      continue;
     }
 
     if (node.tagName === 'H2') {
-      if (currentPage) {
-        pages.push(currentPage);
-      }
-
-      currentPage = { name: node.textContent, definitions: [] };
+      currentPageName = node.textContent;
     } else {
-      if (!currentPage) {
-        throw new Error();
+      if (!currentPageName) {
+        throw new Error(`Current page is unknown`);
       }
 
-      const [key, value] = node.textContent.split('\n');
-      currentPage.definitions.push({ key, value });
+      const [term, explanation] = node.textContent.split('\n');
+      definitions.push({ term, explanation, pageName: currentPageName });
     }
   }
 
-  return pages
-    .map((page) =>
-      page.definitions.map((definition) => ({
-        ...definition,
-        pageName: page.name,
-      })),
-    )
-    .flat();
+  return definitions;
 }

@@ -1,23 +1,21 @@
-import { writeFile } from 'fs/promises';
-import { JSDOM } from 'jsdom';
-import axios from 'axios';
 import PQueue from 'p-queue';
+import axios from 'axios';
 import { Definition } from './types';
-import { parseDefinitionsFromHtml } from './parse-definitions-from-html';
+import { JSDOM } from 'jsdom';
 import { buildXmlForDefinitions } from './build-xml-for-definitions';
+import { parseDefinitionsFromHtml } from './parse-definitions-from-html';
+import { writeFile } from 'fs/promises';
 
 const xmlFileName = 'build/parsed.xml';
 const baseURL = 'https://infinitejest.wallacewiki.com';
 const queue = new PQueue({ concurrency: 5 });
-const axiosInstance = axios.create({ baseURL });
+const wallaceWikiAxios = axios.create({ baseURL, timeout: 5000 });
 const definitions: Definition[] = [];
 
 async function main() {
-  const { data: html } = await axiosInstance.get('/david-foster-wallace');
+  const { data: html } = await wallaceWikiAxios.get('/david-foster-wallace');
   const dom = new JSDOM(html, { url: baseURL, contentType: 'text/html' });
-
-  const xPathEvaluator = new dom.window.XPathEvaluator();
-  const nodesSnapshot = xPathEvaluator
+  const anchorNodesSnapshot = new dom.window.XPathEvaluator()
     .createExpression('//*[@id="ij-pbp"]/a/@href')
     .evaluate(
       dom.window.document,
@@ -26,16 +24,18 @@ async function main() {
 
   const queuePromises = [];
 
-  for (let i = 0; i < nodesSnapshot.snapshotLength; i++) {
-    const node = nodesSnapshot.snapshotItem(i) as Element | null;
+  for (let i = 0; i < anchorNodesSnapshot.snapshotLength; i++) {
+    const node = anchorNodesSnapshot.snapshotItem(i) as Element | null;
     const url = node?.nodeValue;
 
     if (!url) {
-      throw new Error();
+      console.warn('Invalid node encountered, skipping');
+
+      continue;
     }
 
     const queuePromise = queue.add(async () => {
-      const { data: html } = await axiosInstance.get(url);
+      const { data: html } = await wallaceWikiAxios.get(url);
       console.log(`- Downloaded html from ${url}`);
 
       definitions.push(...parseDefinitionsFromHtml(html, baseURL));

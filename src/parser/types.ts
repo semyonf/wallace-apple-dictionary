@@ -1,10 +1,5 @@
 export interface Definition {
-  key: string;
-  value: string;
+  term: string;
+  explanation: string;
   pageName: string;
 }
-
-export type Page = {
-  name: string;
-  definitions: Array<Omit<Definition, 'pageName'>>;
-};

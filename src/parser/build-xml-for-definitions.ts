@@ -17,22 +17,22 @@ export function buildXmlForDefinitions(definitions: Definition[]): string {
             {
               _attr: {
                 id: snakeCase(
-                  `${definition.key} ${definition.pageName} ${index}`,
+                  `${definition.term} ${definition.pageName} ${index}`,
                 ),
-                'd:title': definition.key,
+                'd:title': definition.term,
                 'd:parental-control': 1,
               },
             },
             {
-              'd:index': [{ _attr: { 'd:value': definition.key } }],
+              'd:index': [{ _attr: { 'd:value': definition.term } }],
             },
             {
               'd:index': [{ _attr: { 'd:value': definition.pageName } }],
             },
-            { b: definition.key },
+            { b: definition.term },
             { div: [{ _attr: { class: 'd-page' } }, definition.pageName] },
             {
-              p: definition.value,
+              p: definition.explanation,
             },
           ],
         })),
