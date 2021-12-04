@@ -5,13 +5,13 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleIdentifier</key>
-	<string>ru.taxnuke.wallace-apple-dictionary</string>
+	<string>semyonf.wallace-apple-dictionary</string>
 	<key>CFBundleName</key>
 	<string>Wallace Dictionary</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>DCSDictionaryCopyright</key>
-	<string>Copyright © 2020 Semyon Fomin</string>
+	<string>Semyon Fomin • https://github.com/semyonf/wallace-apple-dictionary</string>
 	<key>DCSDictionaryPrefsHTML</key>
  	<string>WallaceDictionary_prefs.html</string>
 	<key>DCSDictionaryUseSystemAppearance</key>

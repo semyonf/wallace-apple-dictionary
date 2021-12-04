@@ -1,15 +1,7 @@
-#
-# Makefile
-#
-#
-#
-
-###########################
-
 DICT_NAME		=	"Wallace Dictionary"
-DICT_SRC_PATH		=	WallaceDictionary.xml
-CSS_PATH		=	WallaceDictionary.css
-PLIST_PATH		=	WallaceInfo.plist
+DICT_SRC_PATH	=	"build/parsed.xml"
+CSS_PATH		=	"src/styles.css"
+PLIST_PATH		=	"src/info.plist"
 
 DICT_BUILD_OPTS		=
 # Suppress adding supplementary key.
@@ -38,7 +30,7 @@ all: parse
 	echo "Done."
 
 parse:
-	/usr/bin/env node -r ts-node/register/transpile-only ./parser.ts
+	/usr/bin/env node -r ts-node/register/transpile-only ./src/parser.ts
 
 install:
 	echo "Installing into $(DESTINATION_FOLDER)".
