@@ -4,6 +4,8 @@ import { JSDOM } from "jsdom"
 import { snakeCase } from 'snake-case'
 import xml from 'xml'
 
+// TODO: REFACTOR THIS WHOLE FILE
+
 const xmlFileName = 'build/parsed.xml'
 const urlTitles = [
   "Pages_3-27", "Pages_27-63",
