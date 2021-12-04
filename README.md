@@ -6,7 +6,7 @@ Installation:
 
 Building from source:
 1. Install Node.js version 12+ (required to parse fresh definitions from the website)
-2. Download Apple's `Dictionary Development Kit` and place it inside `/Applications/Utilities/`
+2. Download Apple's [Additional Tools for Xcode](https://developer.apple.com/download/all/?q=additional), locate Dictionary Development Kit and place it inside `/Applications/Utilities/`
 3. Run `npm i && make && make install`
 
 ![dictionary search by page](https://github.com/taxnuke/wallace-apple-dictionary/blob/master/ReadmeResources/screen_1.jpg)
