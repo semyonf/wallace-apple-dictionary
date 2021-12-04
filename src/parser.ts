@@ -4,7 +4,7 @@ import { JSDOM } from "jsdom"
 import { snakeCase } from 'snake-case'
 import xml from 'xml'
 
-const xmlFileName = 'WallaceDictionary.xml'
+const xmlFileName = 'build/parsed.xml'
 const urlTitles = [
   "Pages_3-27", "Pages_27-63",
   "Pages_63-87", "Pages_87-127", "Pages_127-156", "Pages_157-181",

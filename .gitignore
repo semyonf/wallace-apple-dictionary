@@ -1,8 +1,8 @@
 .DS_Store
 .idea
 .vscode
-WallaceDictionary.xml
-objects/
+objects
+build
 
 # Logs
 logs
