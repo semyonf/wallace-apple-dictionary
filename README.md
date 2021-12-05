@@ -1,3 +1,5 @@
+![master](https://github.com/semyonf/wallace-apple-dictionary/actions/workflows/ci.yml/badge.svg?branch=master)
+
 An Apple macOS Dictionary parsed from David Foster Wallace Wiki : Infinite Jest
 
 Installation:
