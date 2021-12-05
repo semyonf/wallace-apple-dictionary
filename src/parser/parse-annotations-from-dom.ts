@@ -29,7 +29,12 @@ export function parseAnnotationsFromDOM(dom: JSDOM): Annotation[] {
       }
 
       const [title, content] = node.textContent.split('\n');
-      annotations.push({ title, content, pageName });
+
+      if (content) {
+        annotations.push({ title, content, pageName });
+      } else {
+        console.warn(`Could not parse annotation <${title}> @ ${pageName}`);
+      }
     }
   }
 
