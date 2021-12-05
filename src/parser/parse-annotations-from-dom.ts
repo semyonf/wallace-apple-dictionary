@@ -1,11 +1,7 @@
 import { Annotation } from './types';
 import { JSDOM } from 'jsdom';
 
-export function parseAnnotationsFromHtml(
-  html: string,
-  baseURL: string,
-): Annotation[] {
-  const dom = new JSDOM(html, { url: baseURL, contentType: 'text/html' });
+export function parseAnnotationsFromDOM(dom: JSDOM): Annotation[] {
   const nodesSnapshot = new dom.window.XPathEvaluator()
     .createExpression('//*/*[self::p[b] or self::h2][preceding-sibling::h1]')
     .evaluate(
@@ -14,7 +10,7 @@ export function parseAnnotationsFromHtml(
     );
 
   const annotations: Annotation[] = [];
-  let currentPageName: string | null = null;
+  let pageName: string | null = null;
 
   for (let i = 0; i < nodesSnapshot.snapshotLength; i++) {
     const node = nodesSnapshot.snapshotItem(i) as Element | null;
@@ -26,18 +22,14 @@ export function parseAnnotationsFromHtml(
     }
 
     if (node.tagName === 'H2') {
-      currentPageName = node.textContent;
+      pageName = node.textContent;
     } else {
-      if (!currentPageName) {
+      if (!pageName) {
         throw new Error(`Current page is unknown`);
       }
 
-      const [term, explanation] = node.textContent.split('\n');
-      annotations.push({
-        title: term,
-        content: explanation,
-        pageName: currentPageName,
-      });
+      const [title, content] = node.textContent.split('\n');
+      annotations.push({ title, content, pageName });
     }
   }
 
