@@ -72,4 +72,4 @@ async function parseAnnotationsFromUrl(url: string, annotations: Annotation[]) {
   console.log(`- Parsed annotations from ${url}`);
 }
 
-main();
+main().catch(() => process.exit(1));
