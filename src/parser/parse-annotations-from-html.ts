@@ -1,10 +1,10 @@
-import { Definition } from './types';
+import { Annotation } from './types';
 import { JSDOM } from 'jsdom';
 
-export function parseDefinitionsFromHtml(
+export function parseAnnotationsFromHtml(
   html: string,
   baseURL: string,
-): Definition[] {
+): Annotation[] {
   const dom = new JSDOM(html, { url: baseURL, contentType: 'text/html' });
   const nodesSnapshot = new dom.window.XPathEvaluator()
     .createExpression('//*/*[self::p[b] or self::h2][preceding-sibling::h1]')
@@ -13,7 +13,7 @@ export function parseDefinitionsFromHtml(
       dom.window.XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
     );
 
-  const definitions: Definition[] = [];
+  const annotations: Annotation[] = [];
   let currentPageName: string | null = null;
 
   for (let i = 0; i < nodesSnapshot.snapshotLength; i++) {
@@ -33,9 +33,13 @@ export function parseDefinitionsFromHtml(
       }
 
       const [term, explanation] = node.textContent.split('\n');
-      definitions.push({ term, explanation, pageName: currentPageName });
+      annotations.push({
+        title: term,
+        content: explanation,
+        pageName: currentPageName,
+      });
     }
   }
 
-  return definitions;
+  return annotations;
 }

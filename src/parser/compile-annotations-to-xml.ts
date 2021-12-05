@@ -1,8 +1,8 @@
 import xml from 'xml';
 import { snakeCase } from 'snake-case';
-import { Definition } from './types';
+import { Annotation } from './types';
 
-export function buildXmlForDefinitions(definitions: Definition[]): string {
+export function compileAnnotationsToXML(annotations: Annotation[]): string {
   return xml(
     {
       'd:dictionary': [
@@ -12,27 +12,27 @@ export function buildXmlForDefinitions(definitions: Definition[]): string {
             'xmlns:d': 'http://www.apple.com/DTDs/DictionaryService-1.0.rng',
           },
         },
-        ...definitions.map((definition, index) => ({
+        ...annotations.map((annotation, index) => ({
           'd:entry': [
             {
               _attr: {
                 id: snakeCase(
-                  `${definition.term} ${definition.pageName} ${index}`,
+                  `${annotation.title} ${annotation.pageName} ${index}`,
                 ),
-                'd:title': definition.term,
+                'd:title': annotation.title,
                 'd:parental-control': 1,
               },
             },
             {
-              'd:index': [{ _attr: { 'd:value': definition.term } }],
+              'd:index': [{ _attr: { 'd:value': annotation.title } }],
             },
             {
-              'd:index': [{ _attr: { 'd:value': definition.pageName } }],
+              'd:index': [{ _attr: { 'd:value': annotation.pageName } }],
             },
-            { b: definition.term },
-            { div: [{ _attr: { class: 'd-page' } }, definition.pageName] },
+            { b: annotation.title },
+            { div: [{ _attr: { class: 'd-page' } }, annotation.pageName] },
             {
-              p: definition.explanation,
+              p: annotation.content,
             },
           ],
         })),

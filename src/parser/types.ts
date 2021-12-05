@@ -1,5 +1,5 @@
-export interface Definition {
-  term: string;
-  explanation: string;
+export interface Annotation {
+  title: string;
+  content: string;
   pageName: string;
 }

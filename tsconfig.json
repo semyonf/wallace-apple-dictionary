@@ -5,6 +5,6 @@
     "target": "ES2018",
     "module": "CommonJS",
     "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true
+    "esModuleInterop": true
   }
 }
