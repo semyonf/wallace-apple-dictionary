@@ -1,19 +1,23 @@
 {
   "scripts": {
-    "start": "ts-node-transpile-only src/parser/main"
+    "start": "ts-node-transpile-only src/parser/main",
+    "test": "jest"
   },
   "private": true,
   "devDependencies": {
+    "@types/jest": "27.0.3",
     "@types/jsdom": "16.2.13",
     "@types/xml": "1.0.5",
     "@typescript-eslint/eslint-plugin": "4.12.0",
     "@typescript-eslint/parser": "4.12.0",
     "axios": "0.24.0",
     "eslint": "7.17.0",
+    "jest": "27.4.3",
     "jsdom": "19.0.0",
     "p-queue": "6.6.2",
     "prettier": "2.2.1",
     "snake-case": "3.0.3",
+    "ts-jest": "26.4.4",
     "ts-node": "8.10.2",
     "typescript": "^4.5.2",
     "xml": "1.0.1"
