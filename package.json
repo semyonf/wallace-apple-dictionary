@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "ts-node-transpile-only src/parser/main",
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "private": true,
   "devDependencies": {
