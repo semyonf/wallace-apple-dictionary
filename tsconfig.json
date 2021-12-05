@@ -1,19 +1,9 @@
 {
-    "ts-node": {
-      "transpileOnly": true
-    },
-    "compilerOptions": {
-      "lib": [
-        "esnext",
-        "dom"
-      ],
-      "target": "es6",
-      "strict": true,
-      "moduleResolution": "node",
-      "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true,
-    },
-    "exclude": [
-      "node_module"
-    ]
+  "compilerOptions": {
+    "strict": true,
+    "lib": ["esnext", "dom"],
+    "target": "ES2018",
+    "module": "CommonJS",
+    "skipLibCheck": true
   }
+}
