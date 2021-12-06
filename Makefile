@@ -1,5 +1,5 @@
 DICT_NAME		=	"Wallace Dictionary"
-DICT_SRC_PATH	=	"build/parsed.xml"
+DICT_SRC_PATH	=	"build/scraped.xml"
 CSS_PATH		=	"src/styles.css"
 PLIST_PATH		=	"src/info.plist"
 
@@ -30,7 +30,7 @@ all: parse
 	echo "Done."
 
 parse:
-	/usr/bin/env node -r ts-node/register/transpile-only ./src/parser/main.ts
+	/usr/bin/env node -r ts-node/register/transpile-only ./src/scraper/main.ts
 
 install:
 	echo "Installing into $(DESTINATION_FOLDER)".

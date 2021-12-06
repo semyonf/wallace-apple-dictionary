@@ -5,6 +5,8 @@
     "target": "ES2018",
     "module": "CommonJS",
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   }
 }
