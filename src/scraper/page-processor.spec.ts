@@ -3,7 +3,7 @@ import { PageProcessor } from './page-processor';
 import { container } from 'tsyringe';
 import fs from 'fs';
 import { JSDOM } from 'jsdom';
-import { annotationsFromPages3To27 } from './test/resources/annotations-from-pages-3-to-27';
+import { annotationsFromPages3To27 } from './test/resources/annotations/annotations-from-pages-3-to-27';
 import { TaskQueue } from './task-queue';
 import { PageLoader } from './page-loader';
 import { mockLogger } from './test/mock-logger';
@@ -12,7 +12,7 @@ import { AnnotationXMLBuilder } from './annotation-xml-builder/annotation-xml-bu
 mockLogger();
 
 const pageHTML = fs.readFileSync(
-  __dirname + '/test/resources/pages-3-27-with-annotations.html',
+  __dirname + '/test/resources/raw-pages/pages-3-27-with-annotations.html',
 );
 const pageDOM = new JSDOM(pageHTML, { url: 'http://localhost' });
 

@@ -1,4 +1,4 @@
-import { annotationStub } from '../test/resources/annotation-stub';
+import { annotationStub } from '../test/resources/annotations/single-annotation/annotation-stub';
 import fs from 'fs/promises';
 import { parseStringPromise } from 'xml2js';
 import { AnnotationXMLBuilderStream } from './annotation-xml-builder-stream';
@@ -8,7 +8,8 @@ describe(AnnotationXMLBuilderStream.name, () => {
 
   beforeAll(async () => {
     parsedAnnotationXML = await fs.readFile(
-      __dirname + '/../test/resources/parsed-annotation-stub.xml',
+      __dirname +
+        '/../test/resources/annotations/single-annotation/parsed-annotation-stub.xml',
       'utf-8',
     );
   });
