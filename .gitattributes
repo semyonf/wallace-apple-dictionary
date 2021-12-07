@@ -1,1 +1,1 @@
-src/scraper/test/resources/raw-pages/* linguist-detectable=false
+src/scraper/test/resources/** linguist-detectable=false
