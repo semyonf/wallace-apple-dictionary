@@ -24,6 +24,6 @@ export class WallaceAppleDictionary {
     const pathsToPages = this.pageProcessor.parseTableOfContents(homePageDOM);
     await this.pageProcessor.processPages(pathsToPages, annotationXMLBuilder);
 
-    return new Promise((resolve) => annotationXMLBuilder.end(() => resolve()));
+    return new Promise((resolve) => annotationXMLBuilder.end(resolve));
   }
 }

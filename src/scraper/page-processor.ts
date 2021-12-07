@@ -64,7 +64,9 @@ export class PageProcessor {
         }
 
         // todo handle extra newlines, use various strategies
-        const [title, content] = node.textContent.split('\n');
+        const [title, content] = node.textContent
+          .split('\n')
+          .map((text) => text.trim());
 
         if (content) {
           annotations.push({ title, content, pageName });
