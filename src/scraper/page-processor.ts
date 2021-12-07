@@ -2,14 +2,16 @@ import { Annotation } from './types';
 import { JSDOM } from 'jsdom';
 import { TaskQueue } from './task-queue';
 import { PageLoader } from './page-loader';
-import { AnnotationXMLBuilder } from './annotation-xml-builder';
 import { injectable } from 'tsyringe';
+import { AnnotationXMLBuilderStream } from './annotation-xml-builder/annotation-xml-builder-stream';
+import { Logger } from './logger';
 
 @injectable()
 export class PageProcessor {
   constructor(
     private readonly pageLoader: PageLoader,
     private readonly taskQueue: TaskQueue,
+    private readonly logger: Logger,
   ) {}
 
   parseTableOfContents(dom: JSDOM): string[] {
@@ -29,7 +31,7 @@ export class PageProcessor {
       if (relativeUrl) {
         pathsToPagesWithAnnotations.push(relativeUrl);
       } else {
-        console.warn('Invalid node encountered, skipping');
+        this.logger.warn('Invalid node encountered, skipping');
       }
     }
 
@@ -51,7 +53,7 @@ export class PageProcessor {
       const node = nodesSnapshot.snapshotItem(i) as Element | null;
 
       if (!node?.textContent) {
-        console.warn('Invalid node encountered, skipping');
+        this.logger.warn('Invalid node encountered, skipping');
 
         continue;
       }
@@ -71,7 +73,9 @@ export class PageProcessor {
         if (content) {
           annotations.push({ title, content, pageName });
         } else {
-          console.warn(`Could not parse annotation <${title}> @ ${pageName}`);
+          this.logger.warn(
+            `Could not parse annotation <${title}> @ ${pageName}`,
+          );
         }
       }
     }
@@ -81,17 +85,28 @@ export class PageProcessor {
 
   async processPages(
     pathsToPages: string[],
-    xmlSaver: AnnotationXMLBuilder,
+    builderStream: AnnotationXMLBuilderStream,
   ): Promise<void> {
     await Promise.all(
       pathsToPages.map((path) =>
-        this.taskQueue.add(async () => {
-          const pageDOM = await this.pageLoader.loadPageDOM(path);
-          const parsedAnnotations = this.parseAnnotations(pageDOM);
-          console.log(`- Parsed annotations from ${path}`);
-          parsedAnnotations.forEach((annotation) => xmlSaver.write(annotation));
-        }),
+        this.taskQueue.add(this.createTaskForQueue(path, builderStream)),
       ),
     );
+  }
+
+  private createTaskForQueue(
+    path: string,
+    annotationXMLBuilderStream: AnnotationXMLBuilderStream,
+  ) {
+    return async () => {
+      const pageDOM = await this.pageLoader.loadPageDOM(path);
+      const parsedAnnotations = this.parseAnnotations(pageDOM);
+
+      this.logger.log(`- Parsed annotations from ${path}`);
+
+      parsedAnnotations.forEach((annotation) =>
+        annotationXMLBuilderStream.write(annotation),
+      );
+    };
   }
 }

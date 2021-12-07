@@ -1,9 +1,14 @@
 import { Duplex } from 'stream';
 import xml from 'xml';
-import { Annotation } from './types';
+import { Annotation } from '../types';
 import { snakeCase } from 'snake-case';
 
-export class AnnotationXMLBuilder extends Duplex {
+/**
+ * This should have been a Transform stream, but since xml library
+ * only partially implements Readable stream interface, I was only
+ * able to implement this one as Duplex.
+ */
+export class AnnotationXMLBuilderStream extends Duplex {
   private readonly rootElement = xml.element({
     _attr: {
       xmlns: 'http://www.w3.org/1999/xhtml',
@@ -19,7 +24,7 @@ export class AnnotationXMLBuilder extends Duplex {
     },
   );
 
-  private annotationIndex = 0;
+  private chunkId = 0;
 
   constructor() {
     super({ objectMode: true });
@@ -49,8 +54,7 @@ export class AnnotationXMLBuilder extends Duplex {
         {
           _attr: {
             id: snakeCase(
-              `${annotation.title} ${annotation.pageName} ${this
-                .annotationIndex++}`,
+              `${annotation.title} ${annotation.pageName} ${this.chunkId++}`,
             ),
             'd:title': annotation.title,
             'd:parental-control': 1,

@@ -1,7 +1,7 @@
 import PQueue from 'p-queue';
-import { injectable } from 'tsyringe';
+import { singleton } from 'tsyringe';
 
-@injectable()
+@singleton()
 export class TaskQueue {
   private readonly queue = new PQueue({ concurrency: 5 });
 
