@@ -1,42 +1,45 @@
 import { annotationStub } from '../test/resources/annotation-stub';
-import fs from 'fs';
-import { parseString } from 'xml2js';
+import fs from 'fs/promises';
+import { parseStringPromise } from 'xml2js';
 import { AnnotationXMLBuilderStream } from './annotation-xml-builder-stream';
 
-const firstRecord =
-  '<d:dictionary xmlns="http://www.w3.org/1999/xhtml" xmlns:d="http://www.apple.com/DTDs/DictionaryService-1.0.rng">';
-
 describe(AnnotationXMLBuilderStream.name, () => {
-  it('should be defined', () => {
-    expect(AnnotationXMLBuilderStream).toBeDefined();
+  let parsedAnnotationXML: string;
+
+  beforeAll(async () => {
+    parsedAnnotationXML = await fs.readFile(
+      __dirname + '/../test/resources/parsed-annotation-stub.xml',
+      'utf-8',
+    );
   });
 
   it('should start with a declaration', (done) => {
     const annotationXMLBuilder = new AnnotationXMLBuilderStream();
+    const xmlDeclaration =
+      '<d:dictionary xmlns="http://www.w3.org/1999/xhtml" xmlns:d="http://www.apple.com/DTDs/DictionaryService-1.0.rng">';
+
     annotationXMLBuilder.on('data', (data) => {
-      expect(data).toBe(firstRecord);
+      expect(data).toBe(xmlDeclaration);
       done();
     });
 
     expect.assertions(1);
   });
 
-  it('should build correct XML for annotation', (done) => {
-    let builtXML = '';
-    const xmlAnnotation = fs
-      .readFileSync(__dirname + '/../test/resources/parsed-annotation-stub.xml')
-      .toString();
+  it('should build correct XML for annotation', async () => {
+    const parsedXmlAnnotation = await parseStringPromise(parsedAnnotationXML);
 
+    let builtXML = '';
     const annotationXMLBuilder = new AnnotationXMLBuilderStream();
     annotationXMLBuilder.on('data', (chunk) => (builtXML += chunk));
     annotationXMLBuilder.write(annotationStub);
-    annotationXMLBuilder.end(() => {
-      parseString(xmlAnnotation, (err, parsedXmlAnnotation) => {
-        parseString(builtXML, (err, parsedBuiltXML) => {
-          expect(parsedBuiltXML).toStrictEqual(parsedXmlAnnotation);
 
-          done();
-        });
+    await new Promise<void>((resolve) => {
+      annotationXMLBuilder.end(async () => {
+        const parsedBuiltXML = await parseStringPromise(builtXML);
+
+        expect(parsedBuiltXML).toStrictEqual(parsedXmlAnnotation);
+        resolve();
       });
     });
 
