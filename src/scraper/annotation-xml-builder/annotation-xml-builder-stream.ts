@@ -5,8 +5,8 @@ import { snakeCase } from 'snake-case';
 
 /**
  * This should have been a Transform stream, but since xml library
- * only partially implements Readable stream interface, I was only
- * able to implement this one as Duplex.
+ * only implements legacy stream interface, I had to implement
+ * this one as Duplex.
  */
 export class AnnotationXMLBuilderStream extends Duplex {
   private readonly rootElement = xml.element({
