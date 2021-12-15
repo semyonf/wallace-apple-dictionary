@@ -1,20 +1,16 @@
-import { annotationStub } from '../test/resources/annotations/single-annotation/annotation-stub';
-import fs from 'fs/promises';
+import { annotationStub } from '../test/resources/annotation-stub';
 import { parseStringPromise } from 'xml2js';
 import { AnnotationXMLBuilderStream } from './annotation-xml-builder-stream';
+import { loadResource, ResourceName } from '../test/resource-loader';
 
 describe(AnnotationXMLBuilderStream.name, () => {
   let parsedAnnotationXML: string;
 
   beforeAll(async () => {
-    parsedAnnotationXML = await fs.readFile(
-      __dirname +
-        '/../test/resources/annotations/single-annotation/parsed-annotation-stub.xml',
-      'utf-8',
-    );
+    parsedAnnotationXML = await loadResource(ResourceName.SingleAnnotation);
   });
 
-  it('should start with a declaration', (done) => {
+  it('should emit declaration chunk first', (done) => {
     const annotationXMLBuilder = new AnnotationXMLBuilderStream();
     const xmlDeclaration =
       '<d:dictionary xmlns="http://www.w3.org/1999/xhtml" xmlns:d="http://www.apple.com/DTDs/DictionaryService-1.0.rng">';
@@ -27,7 +23,7 @@ describe(AnnotationXMLBuilderStream.name, () => {
     expect.assertions(1);
   });
 
-  it('should build correct XML for annotation', async () => {
+  it('should build correct XML representation of an annotation', async () => {
     const parsedXmlAnnotation = await parseStringPromise(parsedAnnotationXML);
 
     let builtXML = '';

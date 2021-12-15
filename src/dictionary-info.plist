@@ -10,10 +10,10 @@
 	<string>Wallace Dictionary</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>DCSDictionaryManufacturerName</key>
+	<string>Semyon Fomin</string>
 	<key>DCSDictionaryCopyright</key>
 	<string>Semyon Fomin • https://github.com/semyonf/wallace-apple-dictionary</string>
-	<key>DCSDictionaryPrefsHTML</key>
- 	<string>WallaceDictionary_prefs.html</string>
 	<key>DCSDictionaryUseSystemAppearance</key>
 	<true/>
 </dict>

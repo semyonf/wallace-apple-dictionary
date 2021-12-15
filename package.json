@@ -1,6 +1,5 @@
 {
   "scripts": {
-    "start": "ts-node-transpile-only src/scraper/main",
     "typecheck": "tsc --noEmit",
     "test": "jest --passWithNoTests"
   },

@@ -1,6 +1,6 @@
-import { Duplex } from 'stream';
+import stream from 'stream';
 import xml from 'xml';
-import { Annotation } from '../types';
+import { Annotation } from '../annotation';
 import { snakeCase } from 'snake-case';
 
 /**
@@ -8,7 +8,8 @@ import { snakeCase } from 'snake-case';
  * only implements legacy stream interface, I had to implement
  * this one as Duplex.
  */
-export class AnnotationXMLBuilderStream extends Duplex {
+export class AnnotationXMLBuilderStream extends stream.Duplex {
+  private chunkId = 0;
   private readonly rootElement = xml.element({
     _attr: {
       xmlns: 'http://www.w3.org/1999/xhtml',
@@ -23,8 +24,6 @@ export class AnnotationXMLBuilderStream extends Duplex {
       indent: '\t',
     },
   );
-
-  private chunkId = 0;
 
   constructor() {
     super({ objectMode: true });
@@ -60,17 +59,11 @@ export class AnnotationXMLBuilderStream extends Duplex {
             'd:parental-control': 1,
           },
         },
-        {
-          'd:index': [{ _attr: { 'd:value': annotation.title } }],
-        },
-        {
-          'd:index': [{ _attr: { 'd:value': annotation.pageName } }],
-        },
+        { 'd:index': [{ _attr: { 'd:value': annotation.title } }] },
+        { 'd:index': [{ _attr: { 'd:value': annotation.pageName } }] },
         { b: annotation.title },
         { div: [{ _attr: { class: 'd-page' } }, annotation.pageName] },
-        {
-          p: annotation.content,
-        },
+        { p: annotation.content },
       ],
     };
   }

@@ -4,7 +4,7 @@ import { Logger } from './logger';
 import { singleton } from 'tsyringe';
 
 @singleton()
-export class PageLoader {
+export class PageDOMLoader {
   private readonly baseURL = 'https://infinitejest.wallacewiki.com';
   private readonly wallaceWikiAxios = axios.create({
     baseURL: this.baseURL,
@@ -21,7 +21,6 @@ export class PageLoader {
 
   private async loadPageHTML(path: string): Promise<string> {
     const response = await this.wallaceWikiAxios.get(path);
-    // todo make sure response is ok
     const { data: html } = response;
 
     this.logger.info(`- Downloaded html from ${path}`);
