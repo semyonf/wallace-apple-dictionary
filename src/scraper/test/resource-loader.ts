@@ -6,5 +6,8 @@ export enum ResourceName {
 }
 
 export function loadResource(resourceName: ResourceName): Promise<string> {
-  return fs.readFile(`${__dirname}/resources/${resourceName}`, 'utf-8');
+  return fs.readFile(`${__dirname}/resources/${resourceName}`, {
+    encoding: 'utf-8',
+    flag: 'r',
+  });
 }
