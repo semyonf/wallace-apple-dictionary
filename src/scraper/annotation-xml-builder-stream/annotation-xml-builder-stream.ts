@@ -22,6 +22,7 @@ export class AnnotationXMLBuilderStream extends stream.Duplex {
     {
       stream: true,
       indent: '\t',
+      declaration: true,
     },
   );
 

@@ -13,7 +13,7 @@ describe(AnnotationXMLBuilderStream.name, () => {
   it('should emit declaration chunk first', (done) => {
     const annotationXMLBuilder = new AnnotationXMLBuilderStream();
     const xmlDeclaration =
-      '<d:dictionary xmlns="http://www.w3.org/1999/xhtml" xmlns:d="http://www.apple.com/DTDs/DictionaryService-1.0.rng">';
+      '<?xml version="1.0" encoding="UTF-8"?>\n<d:dictionary xmlns="http://www.w3.org/1999/xhtml" xmlns:d="http://www.apple.com/DTDs/DictionaryService-1.0.rng">';
 
     annotationXMLBuilder.on('data', (data) => {
       expect(data).toBe(xmlDeclaration);
