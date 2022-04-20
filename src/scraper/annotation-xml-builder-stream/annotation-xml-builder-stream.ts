@@ -44,6 +44,7 @@ export class AnnotationXMLBuilderStream extends stream.Duplex {
     callback: (error?: Error | null) => void,
   ): void {
     this.rootElement.push(this.getAnnotationXmlObject(annotation));
+    this.chunkId++;
     callback();
   }
 
@@ -53,7 +54,7 @@ export class AnnotationXMLBuilderStream extends stream.Duplex {
         {
           _attr: {
             id: snakeCase(
-              `${annotation.title} ${annotation.pageName} ${this.chunkId++}`,
+              `${annotation.title} ${annotation.pageName} ${this.chunkId}`,
             ),
             'd:title': annotation.title,
             'd:parental-control': 1,
