@@ -6,6 +6,11 @@ import { Logger } from './logger';
 import { AnnotationXMLBuilderStream } from './annotation-xml-builder-stream/annotation-xml-builder-stream';
 
 const [xmlFilePath] = process.argv.slice(2);
+
+if (!xmlFilePath) {
+  throw new Error('Path is not defined')
+}
+
 const outputStream = createWriteStream(xmlFilePath, 'utf-8');
 
 const scraper = container.resolve(Scraper);
