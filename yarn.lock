@@ -548,6 +548,11 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
+"@tsconfig/node16-strictest@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@tsconfig/node16-strictest/-/node16-strictest-1.0.1.tgz#0f73165cdcfc1b63b885b4d82a48bc0ed0cb6596"
+  integrity sha512-VN0sa4DUljguhKIEbdIP2NqcYoC6OuLM9rrPb53PwnFJiBRwakpLH0k0Qp3gqcQxb6H4wtL4A6VGhFwL5DTf2A==
+
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.14":
   version "7.1.16"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.16.tgz#bc12c74b7d65e82d29876b5d0baf5c625ac58702"
@@ -634,6 +639,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.11.tgz#6ea7342dfb379ea1210835bada87b3c512120234"
   integrity sha512-KB0sixD67CeecHC33MYn+eYARkqTheIRNuu97y2XMjR7Wu3XibO1vaY6VBV6O/a89SPI81cEUIYT87UqUWlZNw==
 
+"@types/node@16.11.27":
+  version "16.11.27"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.27.tgz#5da19383bdbeda99bc0d09cfbb88cab7297ebc51"
+  integrity sha512-C1pD3kgLoZ56Uuy5lhfOxie4aZlA3UMGLX9rXteq4WitEZH6Rl80mwactt9QG0w0gLFlN/kLBTFnGXtDVWvWQw==
+
 "@types/parse5@*":
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/@types/parse5/-/parse5-6.0.3.tgz#705bb349e789efa06f43f128cef51240753424cb"
@@ -661,10 +671,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/xml@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@types/xml/-/xml-1.0.5.tgz#5f647b6719cdbcfd026d7e73f295035e49cae0bd"
-  integrity sha512-h3PVM7waRi2UeoaY2BhpLGvettU/3vfCbsjXMV/9Ex5WjvIy82J8Qfp1xiPxM4kTSOLdFFpjRwQ7YY7XJeKBvg==
+"@types/xml@1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@types/xml/-/xml-1.0.8.tgz#97c0692b29943fd26bc3da0ea155e26bba017536"
+  integrity sha512-IptEZBtDwSPayCP8FmbordhAdjdxsif4zH29xTbBRacZeCHFHZp8OxyG1/CrS8AS0MziJUPTGWCTKbYtvHGYPg==
   dependencies:
     "@types/node" "*"
 
