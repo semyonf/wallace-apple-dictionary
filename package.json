@@ -3,6 +3,10 @@
     "typecheck": "tsc --noEmit",
     "test": "jest --passWithNoTests"
   },
+  "engineStrict": true,
+  "engines": {
+    "node": ">=16 <17"
+  },
   "private": true,
   "devDependencies": {
     "@tsconfig/node16-strictest": "1.0.1",
