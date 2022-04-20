@@ -30,8 +30,7 @@ export class AnnotationXMLBuilderStream extends stream.Duplex {
     this.xmlStream.on('data', (chunk) => this.push(chunk));
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  override _read(): void {}
+  override _read = new Function() as () => void
 
   override _final(callback: (error?: Error | null) => void): void {
     this.rootElement.close();

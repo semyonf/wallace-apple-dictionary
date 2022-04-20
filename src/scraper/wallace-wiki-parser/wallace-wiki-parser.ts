@@ -45,23 +45,25 @@ export class WallaceWikiParser {
 
       if (element.tagName === 'H2') {
         pageName = element.textContent;
+
+        continue
+      }
+
+      if (!pageName) {
+        throw new Error(`Current page is unknown`);
+      }
+
+      // todo handle extra newlines, use various strategies
+      const [title, content] = element.textContent
+        .split('\n')
+        .map((text) => text.trim());
+
+      if (content && title) {
+        annotations.push({ title, content, pageName });
       } else {
-        if (!pageName) {
-          throw new Error(`Current page is unknown`);
-        }
-
-        // todo handle extra newlines, use various strategies
-        const [title, content] = element.textContent
-          .split('\n')
-          .map((text) => text.trim());
-
-        if (content && title) {
-          annotations.push({ title, content, pageName });
-        } else {
-          this.logger.warn(
-            `Could not parse annotation <${element.textContent}> @ ${pageName}`,
-          );
-        }
+        this.logger.warn(
+          `Could not parse annotation <${element.textContent}> @ ${pageName}`,
+        );
       }
     }
 
