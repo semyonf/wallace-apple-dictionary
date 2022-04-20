@@ -1,4 +1,4 @@
-import { Annotation } from '../../annotation';
+import type {Annotation} from '../../annotation';
 
 export const annotationStub: Annotation = {
   title: 'Uncle Charles',

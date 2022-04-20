@@ -1,7 +1,7 @@
 import stream from 'stream';
 import xml from 'xml';
-import { Annotation } from '../annotation';
-import { snakeCase } from 'snake-case';
+import type {Annotation} from '../annotation';
+import {snakeCase} from 'snake-case';
 
 /**
  * This should have been a Transform stream, but since xml library
@@ -31,14 +31,14 @@ export class AnnotationXMLBuilderStream extends stream.Duplex {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  _read(): void {}
+  override _read(): void {}
 
-  _final(callback: (error?: Error | null) => void): void {
+  override _final(callback: (error?: Error | null) => void): void {
     this.rootElement.close();
     callback();
   }
 
-  _write(
+  override _write(
     annotation: Annotation,
     _encoding: never,
     callback: (error?: Error | null) => void,

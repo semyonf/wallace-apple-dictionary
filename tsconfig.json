@@ -1,11 +1,7 @@
 {
+  "extends": "@tsconfig/node16-strictest/tsconfig.json",
   "compilerOptions": {
-    "strict": true,
-    "lib": ["esnext", "dom"],
-    "target": "ES2018",
-    "module": "CommonJS",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
+    "lib": ["dom"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   }
