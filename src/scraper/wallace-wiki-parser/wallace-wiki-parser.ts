@@ -55,11 +55,11 @@ export class WallaceWikiParser {
           .split('\n')
           .map((text) => text.trim());
 
-        if (content) {
+        if (content && title) {
           annotations.push({ title, content, pageName });
         } else {
           this.logger.warn(
-            `Could not parse annotation <${title}> @ ${pageName}`,
+            `Could not parse annotation <${element.textContent}> @ ${pageName}`,
           );
         }
       }
