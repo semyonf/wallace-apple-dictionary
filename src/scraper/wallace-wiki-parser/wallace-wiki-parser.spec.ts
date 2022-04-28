@@ -2,9 +2,9 @@ import 'reflect-metadata';
 import { WallaceWikiParser } from './wallace-wiki-parser';
 import { container } from 'tsyringe';
 import { JSDOM } from 'jsdom';
-import { annotationsFromPages3To27 } from '../test/resources/annotations-from-pages-3-to-27';
-import { mockLogger } from '../test/mock-logger';
-import { loadResource, ResourceName } from '../test/resource-loader';
+import { annotationsFromPages3To27 } from '../test-helpers/resources/annotations-from-pages-3-to-27';
+import { mockLogger } from '../test-helpers/mock-logger';
+import { loadResource, ResourceName } from '../test-helpers/resource-loader';
 
 mockLogger();
 

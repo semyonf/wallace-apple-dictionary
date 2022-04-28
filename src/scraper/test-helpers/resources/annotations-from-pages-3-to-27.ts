@@ -1,4 +1,4 @@
-import type {Annotation} from '../../annotation';
+import type { Annotation } from '../../annotation';
 
 export const annotationsFromPages3To27: Annotation[] = [
   {

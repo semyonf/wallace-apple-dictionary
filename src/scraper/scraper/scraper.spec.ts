@@ -5,7 +5,7 @@ import { PageDOMLoader } from '../page-dom-loader';
 import { JSDOM } from 'jsdom';
 import { Scraper } from './scraper';
 import { WallaceWikiParser } from '../wallace-wiki-parser/wallace-wiki-parser';
-import { mockLogger } from '../test/mock-logger';
+import { mockLogger } from '../test-helpers/mock-logger';
 import stream from 'stream';
 
 mockLogger();

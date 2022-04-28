@@ -1,7 +1,7 @@
-import { annotationStub } from '../test/resources/annotation-stub';
+import { annotationStub } from '../test-helpers/resources/annotation-stub';
 import { parseStringPromise } from 'xml2js';
 import { AnnotationXMLBuilderStream } from './annotation-xml-builder-stream';
-import { loadResource, ResourceName } from '../test/resource-loader';
+import { loadResource, ResourceName } from '../test-helpers/resource-loader';
 
 describe(AnnotationXMLBuilderStream.name, () => {
   let parsedAnnotationXML: string;
