@@ -1,17 +1,12 @@
-import stream from 'stream';
+import { Transform, TransformCallback } from 'stream';
 import xml from 'xml';
 import type { Annotation } from '../annotation';
 import { snakeCase } from 'snake-case';
 
-/**
- * This should have been a Transform stream, but since xml library
- * only implements legacy stream interface, I had to implement
- * this one as Duplex.
- */
-export class AnnotationXMLBuilderStream extends stream.Duplex {
-  private chunkId = 0;
+export class AnnotationXMLBuilderStream extends Transform {
+  private xmlChunkId = 0;
 
-  private readonly rootElement = xml.element({
+  private readonly rootXmlElement = xml.element({
     _attr: {
       xmlns: 'http://www.w3.org/1999/xhtml',
       'xmlns:d': 'http://www.apple.com/DTDs/DictionaryService-1.0.rng',
@@ -19,7 +14,7 @@ export class AnnotationXMLBuilderStream extends stream.Duplex {
   });
 
   private readonly xmlStream = xml(
-    { 'd:dictionary': this.rootElement },
+    { 'd:dictionary': this.rootXmlElement },
     {
       stream: true,
       indent: '\t',
@@ -29,23 +24,21 @@ export class AnnotationXMLBuilderStream extends stream.Duplex {
 
   constructor() {
     super({ objectMode: true });
-    this.xmlStream.on('data', (chunk) => this.push(chunk));
+    this.xmlStream.on('data', (xmlChunk) => this.push(xmlChunk));
   }
-
-  override _read = new Function() as () => void
 
   override _final(callback: (error?: Error | null) => void): void {
-    this.rootElement.close();
-    callback();
+    this.rootXmlElement.close();
+    this.xmlStream.once('end', callback);
   }
 
-  override _write(
+  override _transform(
     annotation: Annotation,
-    _encoding: never,
-    callback: (error?: Error | null) => void,
+    _encoding: BufferEncoding,
+    callback: TransformCallback,
   ): void {
-    this.rootElement.push(this.getAnnotationXmlObject(annotation));
-    this.chunkId++;
+    this.rootXmlElement.push(this.getAnnotationXmlObject(annotation));
+    this.xmlChunkId++;
     callback();
   }
 
@@ -55,7 +48,7 @@ export class AnnotationXMLBuilderStream extends stream.Duplex {
         {
           _attr: {
             id: snakeCase(
-              `${annotation.title} ${annotation.pageName} ${this.chunkId}`,
+              `${annotation.title} ${annotation.pageName} ${this.xmlChunkId}`,
             ),
             'd:title': annotation.title,
             'd:parental-control': 1,
