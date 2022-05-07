@@ -3,6 +3,10 @@
     "typecheck": "tsc --noEmit",
     "test": "jest --passWithNoTests"
   },
+  "os": [
+    "darwin",
+    "linux"
+  ],
   "engineStrict": true,
   "engines": {
     "node": ">=16 <17"
