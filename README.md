@@ -2,6 +2,8 @@
 
 ## macOS Dictionary parsed from David Foster Wallace Wiki : Infinite Jest
 
+![context](https://github.com/semyonf/wallace-apple-dictionary/blob/master/readme-resources/demo.gif)
+
 ### Installation:
 1. Download the latest `Wallace.Dictionary.dictionary.zip` from [releases](https://github.com/semyonf/wallace-apple-dictionary/releases) (under 'Assets')
 2. Extract and move the extracted `.dictionary`-file to `~/Library/Dictionaries`, enable it in your Dictionary.app
