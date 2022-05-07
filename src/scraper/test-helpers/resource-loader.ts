@@ -35,7 +35,6 @@ export async function loadResource(
 
 function assertResourcesArePresentSync() {
   const files = fs.readdirSync(resourceRoot);
-
   Object.values(ResourceName).forEach((resource) =>
     assert(files.includes(resource)),
   );

@@ -1,7 +1,7 @@
-import { annotationStub } from '../test-helpers/resources/annotation-stub';
 import { parseStringPromise } from 'xml2js';
 import { AnnotationXMLBuilderStream } from './annotation-xml-builder-stream';
 import { loadResource, ResourceName } from '../test-helpers/resource-loader';
+import type { Annotation } from '../annotation';
 
 describe(AnnotationXMLBuilderStream.name, () => {
   let parsedAnnotationXML: string;
@@ -25,6 +25,11 @@ describe(AnnotationXMLBuilderStream.name, () => {
 
   it('should build correct XML representation of an annotation', async () => {
     const parsedXmlAnnotation = await parseStringPromise(parsedAnnotationXML);
+    const annotationStub: Annotation = {
+      title: 'Uncle Charles',
+      content: `Hal's Uncle, Charles Tavis, is head of the Enfield Tennis Academy.`,
+      pageName: 'Page 3',
+    };
 
     let builtXML = '';
     const annotationXMLBuilder = new AnnotationXMLBuilderStream();

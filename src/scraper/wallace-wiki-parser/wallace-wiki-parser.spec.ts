@@ -2,11 +2,10 @@ import 'reflect-metadata';
 import { WallaceWikiParser } from './wallace-wiki-parser';
 import { container } from 'tsyringe';
 import { JSDOM } from 'jsdom';
-import { annotationsFromPages3To27 } from '../test-helpers/resources/annotations-from-pages-3-to-27';
-import { mockLogger } from '../test-helpers/mock-logger';
+import { useDummyLogger } from '../test-helpers/use-dummy-logger';
 import { loadResource, ResourceName } from '../test-helpers/resource-loader';
 
-mockLogger();
+useDummyLogger();
 
 const wallaceWikiParser = container.resolve(WallaceWikiParser);
 
@@ -17,6 +16,6 @@ describe(WallaceWikiParser.name, () => {
 
     const parsedAnnotations = wallaceWikiParser.parseAnnotations(pageDOM);
 
-    expect(parsedAnnotations).toStrictEqual(annotationsFromPages3To27);
+    expect(parsedAnnotations).toMatchSnapshot();
   });
 });
