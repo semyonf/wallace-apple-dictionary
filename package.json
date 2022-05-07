@@ -1,7 +1,17 @@
 {
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "prepare": "rm -rf .git/hooks && ln -s $(pwd)/git-hooks .git/hooks"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{md,json}": [
+      "prettier --write"
+    ]
   },
   "os": [
     "darwin",
@@ -32,6 +42,7 @@
     "@typescript-eslint/parser": "4.12.0",
     "eslint": "7.17.0",
     "jest": "27.4.3",
+    "lint-staged": "12.4.1",
     "prettier": "2.6.2",
     "ts-jest": "27.0.7",
     "ts-node": "8.10.2",
