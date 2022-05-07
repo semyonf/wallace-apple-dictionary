@@ -28,8 +28,9 @@ describe(AnnotationXMLBuilderStream.name, () => {
 
     let builtXML = '';
     const annotationXMLBuilder = new AnnotationXMLBuilderStream();
-    annotationXMLBuilder.on('data', (chunk) => (builtXML += chunk));
-    annotationXMLBuilder.write(annotationStub);
+    annotationXMLBuilder
+      .on('data', (chunk) => (builtXML += chunk))
+      .write(annotationStub);
 
     await new Promise<void>((resolve) => {
       annotationXMLBuilder.end(async () => {

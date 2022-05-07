@@ -1,7 +1,7 @@
 import stream from 'stream';
 import xml from 'xml';
-import type {Annotation} from '../annotation';
-import {snakeCase} from 'snake-case';
+import type { Annotation } from '../annotation';
+import { snakeCase } from 'snake-case';
 
 /**
  * This should have been a Transform stream, but since xml library
@@ -10,6 +10,7 @@ import {snakeCase} from 'snake-case';
  */
 export class AnnotationXMLBuilderStream extends stream.Duplex {
   private chunkId = 0;
+
   private readonly rootElement = xml.element({
     _attr: {
       xmlns: 'http://www.w3.org/1999/xhtml',

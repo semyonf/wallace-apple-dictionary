@@ -1,14 +1,14 @@
 import 'reflect-metadata';
-import {Scraper} from './scraper/scraper';
-import {createWriteStream} from 'fs';
-import {container} from 'tsyringe';
-import {Logger} from './logger';
-import {AnnotationXMLBuilderStream} from './annotation-xml-builder-stream/annotation-xml-builder-stream';
+import { Scraper } from './scraper/scraper';
+import { createWriteStream } from 'fs';
+import { container } from 'tsyringe';
+import { Logger } from './logger';
+import { AnnotationXMLBuilderStream } from './annotation-xml-builder-stream/annotation-xml-builder-stream';
 
 const [xmlFilePath] = process.argv.slice(2);
 
 if (!xmlFilePath) {
-  throw new Error('Path is not defined')
+  throw new Error('Path is not defined');
 }
 
 const outputStream = createWriteStream(xmlFilePath, 'utf-8');

@@ -32,9 +32,8 @@ export class Scraper {
     annotationsStream: stream.Readable,
   ): Promise<void> {
     const homePageDOM = await this.pageLoader.loadPageDOM(PagePaths.Home);
-    const pathsToPages = this.wallaceWikiParser.parseTableOfContents(
-      homePageDOM,
-    );
+    const pathsToPages =
+      this.wallaceWikiParser.parseTableOfContents(homePageDOM);
 
     await this.scrapeAnnotationsFromPages(pathsToPages, annotationsStream);
   }
@@ -53,9 +52,8 @@ export class Scraper {
   private createScrapingTask(path: string, annotationsStream: stream.Readable) {
     return async () => {
       const pageDOM = await this.pageLoader.loadPageDOM(path);
-      const parsedAnnotations = this.wallaceWikiParser.parseAnnotations(
-        pageDOM,
-      );
+      const parsedAnnotations =
+        this.wallaceWikiParser.parseAnnotations(pageDOM);
 
       this.logger.log(`- Parsed annotations from ${path}`);
 
