@@ -5,7 +5,8 @@ const resourceRoot = `${__dirname}/resources/`;
 const resourceCache = new Map<string, string>();
 
 export enum ResourceName {
-  RawPage = 'raw-page.html',
+  RawPageWithDefinitions = 'raw-page-with-definitions.html',
+  RawHomePage = 'raw-home-page.html',
   SingleAnnotation = 'parsed-annotation-stub.xml',
 }
 
