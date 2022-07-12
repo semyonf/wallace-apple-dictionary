@@ -11,10 +11,12 @@ jobs:
           cache: 'yarn'
       - run: yarn install
       - run: yarn test --coverage
+
       - name: Coveralls
         uses: coverallsapp/github-action@v1.1.0
         with:
           github-token: ${{ secrets.github_token }}
+
       - name: CodeClimate
       - uses: paambaati/codeclimate-action@v2.2.4
         env:
