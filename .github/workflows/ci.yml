@@ -15,8 +15,12 @@ jobs:
         with:
           node-version: '16'
           cache: 'yarn'
+
       - run: yarn install
+
+      - name: Unit tests
       - run: yarn test --coverage
+
       - name: Coveralls
         uses: coverallsapp/github-action@v1.1.0
         with:
