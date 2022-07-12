@@ -6,6 +6,10 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/a6c5b5bd1a51e4472891/maintainability)](https://codeclimate.com/github/semyonf/wallace-apple-dictionary/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a6c5b5bd1a51e4472891/test_coverage)](https://codeclimate.com/github/semyonf/wallace-apple-dictionary/test_coverage)
 
+[![codecov](https://codecov.io/gh/semyonf/wallace-apple-dictionary/branch/master/graph/badge.svg?token=LU699JPC4S)](https://codecov.io/gh/semyonf/wallace-apple-dictionary)
+
+![codecov](https://codecov.io/gh/semyonf/wallace-apple-dictionary/branch/master/graphs/tree.svg?token=LU699JPC4S)
+
 ## macOS Dictionary parsed from David Foster Wallace Wiki : Infinite Jest
 
 ![context](https://github.com/semyonf/wallace-apple-dictionary/blob/master/readme-resources/demo.gif)
