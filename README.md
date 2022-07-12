@@ -1,10 +1,6 @@
 ![master](https://github.com/semyonf/wallace-apple-dictionary/actions/workflows/ci.yml/badge.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/semyonf/wallace-apple-dictionary/badge.svg?branch=master)](https://coveralls.io/github/semyonf/wallace-apple-dictionary?branch=master)
-[![codecov](https://codecov.io/gh/semyonf/wallace-apple-dictionary/branch/master/graph/badge.svg?token=LU699JPC4S)](https://codecov.io/gh/semyonf/wallace-apple-dictionary)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a6c5b5bd1a51e4472891/test_coverage)](https://codeclimate.com/github/semyonf/wallace-apple-dictionary/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a6c5b5bd1a51e4472891/maintainability)](https://codeclimate.com/github/semyonf/wallace-apple-dictionary/maintainability)
-
-![codecov](https://codecov.io/gh/semyonf/wallace-apple-dictionary/branch/master/graphs/tree.svg?token=LU699JPC4S)
 
 ## macOS Dictionary parsed from David Foster Wallace Wiki : Infinite Jest
 
