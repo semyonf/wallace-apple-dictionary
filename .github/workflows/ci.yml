@@ -15,3 +15,7 @@ jobs:
         uses: coverallsapp/github-action@v1.1.0
         with:
           github-token: ${{ secrets.github_token }}
+      - name: CodeClimate
+      - uses: paambaati/codeclimate-action@v2.2.4
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
