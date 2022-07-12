@@ -1,7 +1,7 @@
-import type {Annotation} from '../annotation';
-import type {JSDOM} from 'jsdom';
-import {singleton} from 'tsyringe';
-import {Logger} from '../logger';
+import type { Annotation } from '../annotation';
+import type { JSDOM } from 'jsdom';
+import { singleton } from 'tsyringe';
+import { Logger } from '../logger';
 
 @singleton()
 export class WallaceWikiParser {
@@ -46,7 +46,7 @@ export class WallaceWikiParser {
       if (element.tagName === 'H2') {
         pageName = element.textContent;
 
-        continue
+        continue;
       }
 
       if (!pageName) {
