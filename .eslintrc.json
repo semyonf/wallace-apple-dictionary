@@ -2,9 +2,17 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
   "env": {
-    "node": true,
-    "jest": true
-  }
+    "node": true
+  },
+  "overrides": [
+    {
+      "files": ["**/*spec.ts"],
+      "env": { "jest": true }
+    }
+  ]
 }
