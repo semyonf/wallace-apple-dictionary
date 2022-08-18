@@ -1,8 +1,9 @@
 {
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "jest --passWithNoTests",
-    "prepare": "rm -rf .git/hooks && ln -s $(pwd)/git-hooks .git/hooks"
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "postinstall": "rm -rf .git/hooks && ln -s $(pwd)/git-hooks .git/hooks"
   },
   "lint-staged": {
     "*.{js,ts}": [

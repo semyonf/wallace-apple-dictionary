@@ -1,17 +1,27 @@
-on: ["push", "pull_request"]
-name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+name: Node.js CI
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'yarn'
-      - run: yarn install
-      - run: yarn test --coverage
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test:cov
+
       - name: CodeClimate
+        if: ${{ github.ref == 'refs/heads/master' }}
         uses: paambaati/codeclimate-action@v2.7.5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
