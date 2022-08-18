@@ -14,8 +14,8 @@
 ### Building from source:
 
 1. Install Node.js version 16 (required to parse fresh annotations from the website)
-2. Download Apple's [Additional Tools for Xcode](https://developer.apple.com/download/all/?q=additional), locate Dictionary Development Kit and place it inside `/Applications/Utilities/`
-3. Run `npm i && make && make install`
+2. Run `npm i && make`
+3. Run `make install` to add the dictionary
 
 ![dictionary search by page](https://github.com/semyonf/wallace-apple-dictionary/blob/master/readme-resources/screen-1.jpg)
 ![dictionary spotlight](https://github.com/semyonf/wallace-apple-dictionary/blob/master/readme-resources/screen-2.jpg)

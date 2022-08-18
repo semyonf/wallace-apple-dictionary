@@ -15,8 +15,7 @@
     ]
   },
   "os": [
-    "darwin",
-    "linux"
+    "darwin"
   ],
   "engineStrict": true,
   "engines": {
