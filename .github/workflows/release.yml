@@ -1,0 +1,29 @@
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+name: Build release
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - run: npm ci
+
+      - name: Scrape and build the dictionary
+        run: |
+          make all
+          ditto -c -k --sequesterRsrc --keepParent objects/Wallace\ Dictionary.dictionary Wallace\ Dictionary.dictionary.zip
+
+      - name: Create a release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: Wallace\ Dictionary.dictionary.zip
