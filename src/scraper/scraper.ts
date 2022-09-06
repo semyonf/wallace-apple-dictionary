@@ -1,16 +1,21 @@
-import { PageDOMLoader } from '../page-dom-loader';
-import { WallaceWikiParser } from '../wallace-wiki-parser/wallace-wiki-parser';
-import { injectable } from 'tsyringe';
+import type { PageDOMLoader } from '../page-dom-loader';
+import type { WallaceWikiParser } from '../wallace-wiki-parser/wallace-wiki-parser';
 import stream from 'stream';
-import { TaskQueue } from '../task-queue';
-import { Logger } from '../logger';
+import type { TaskQueue } from '../task-queue';
+import type { Logger } from '../logger';
 
 enum PagePaths {
   Home = '/david-foster-wallace',
 }
 
-@injectable()
 export class Scraper {
+  public static inject = [
+    'page-dom-loader',
+    'wallace-wiki-parser',
+    'task-queue',
+    'logger',
+  ] as const;
+
   constructor(
     private readonly pageLoader: PageDOMLoader,
     private readonly wallaceWikiParser: WallaceWikiParser,

@@ -1,21 +1,14 @@
-import 'reflect-metadata';
-import { container } from 'tsyringe';
-import { TaskQueue } from '../task-queue';
-import { PageDOMLoader } from '../page-dom-loader';
 import { JSDOM } from 'jsdom';
 import { Scraper } from './scraper';
-import { WallaceWikiParser } from '../wallace-wiki-parser/wallace-wiki-parser';
-import { useDummyLogger } from '../test-helpers/use-dummy-logger';
 import stream from 'stream';
-
-useDummyLogger();
+import { testInjector } from '../test-helpers/test-injector';
 
 beforeEach(() => jest.clearAllMocks());
 
-const scraper = container.resolve(Scraper);
-const taskQueue = container.resolve(TaskQueue);
-const pageLoader = container.resolve(PageDOMLoader);
-const parser = container.resolve(WallaceWikiParser);
+const scraper = testInjector.resolve('scraper');
+const taskQueue = testInjector.resolve('task-queue');
+const pageLoader = testInjector.resolve('page-dom-loader');
+const parser = testInjector.resolve('wallace-wiki-parser');
 
 describe(Scraper.prototype.scrapeAnnotations.name, () => {
   const loadPageDOMSpy = jest.spyOn(pageLoader, 'loadPageDOM');

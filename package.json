@@ -3,6 +3,8 @@
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:cov": "jest --coverage",
+    "format": "prettier --write 'src/**/*.{ts,js,css,md,json}'",
+    "lint": "eslint --fix .",
     "postinstall": "rm -rf .git/hooks && ln -s $(pwd)/git-hooks .git/hooks"
   },
   "lint-staged": {
@@ -26,9 +28,8 @@
     "axios": "0.24.0",
     "jsdom": "19.0.0",
     "p-queue": "6.6.2",
-    "reflect-metadata": "0.1.13",
     "snake-case": "3.0.3",
-    "tsyringe": "4.6.0",
+    "typed-inject": "3.0.1",
     "xml": "1.0.1"
   },
   "devDependencies": {

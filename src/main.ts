@@ -1,9 +1,6 @@
-import 'reflect-metadata';
-import { Scraper } from './scraper/scraper';
 import { createWriteStream } from 'fs';
-import { container } from 'tsyringe';
-import { Logger } from './logger';
 import { AnnotationXMLBuilderStream } from './annotation-xml-builder-stream/annotation-xml-builder-stream';
+import { appInjector } from './app-injector';
 
 const [xmlFilePath] = process.argv.slice(2);
 
@@ -13,8 +10,8 @@ if (!xmlFilePath) {
 
 const outputStream = createWriteStream(xmlFilePath, 'utf-8');
 
-const scraper = container.resolve(Scraper);
-const logger = container.resolve(Logger);
+const scraper = appInjector.resolve('scraper');
+const logger = appInjector.resolve('logger');
 
 scraper
   .scrapeAnnotations()

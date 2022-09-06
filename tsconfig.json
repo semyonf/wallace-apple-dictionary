@@ -1,8 +1,6 @@
 {
   "extends": "@tsconfig/node16-strictest/tsconfig.json",
   "compilerOptions": {
-    "lib": ["dom"],
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "lib": ["dom"]
   }
 }

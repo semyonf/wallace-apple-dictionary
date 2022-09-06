@@ -1,10 +1,9 @@
 import type { Annotation } from '../annotation';
 import type { JSDOM } from 'jsdom';
-import { singleton } from 'tsyringe';
-import { Logger } from '../logger';
+import type { Logger } from '../logger';
 
-@singleton()
 export class WallaceWikiParser {
+  public static inject = ['logger'] as const;
   constructor(private readonly logger: Logger) {}
 
   parseTableOfContents(dom: JSDOM): string[] {

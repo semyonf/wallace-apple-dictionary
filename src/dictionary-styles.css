@@ -2,19 +2,18 @@
 @namespace d url(http://www.apple.com/DTDs/DictionaryService-1.0.rng);
 
 .d-page {
-	font-size: small;
-	text-transform: lowercase;
+  font-size: small;
+  text-transform: lowercase;
 }
 
 p {
-	margin-top: 5px;
-	font-style: italic;
-	border-bottom: 1px solid lightgrey;
+  margin-top: 5px;
+  font-style: italic;
+  border-bottom: 1px solid lightgrey;
 }
 
-@media (prefers-color-scheme: dark)
-{
-	body {
-		color: white;
-	}
+@media (prefers-color-scheme: dark) {
+  body {
+    color: white;
+  }
 }

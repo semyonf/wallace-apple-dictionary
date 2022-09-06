@@ -1,10 +1,17 @@
-import { singleton } from 'tsyringe';
-
-@singleton()
 export class Logger {
-  debug = console.debug;
-  error = console.error;
-  info = console.info;
-  warn = console.warn;
-  log = console.log;
+  debug(msg: unknown) {
+    console.debug(msg);
+  }
+  error(msg: unknown) {
+    console.error(msg);
+  }
+  info(msg: unknown) {
+    console.info(msg);
+  }
+  warn(msg: unknown) {
+    console.warn(msg);
+  }
+  log(msg: unknown) {
+    console.log(msg);
+  }
 }

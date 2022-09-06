@@ -1,17 +1,16 @@
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
-import { Logger } from './logger';
-import { singleton } from 'tsyringe';
+import type { Logger } from './logger';
 
-@singleton()
 export class PageDOMLoader {
+  public static inject = ['logger'] as const;
+  constructor(private readonly logger: Logger) {}
+
   private readonly baseURL = 'https://infinitejest.wallacewiki.com';
   private readonly wallaceWikiAxios = axios.create({
     baseURL: this.baseURL,
     timeout: 5000,
   });
-
-  constructor(private readonly logger: Logger) {}
 
   async loadPageDOM(path: string): Promise<JSDOM> {
     const html = await this.loadPageHTML(path);

@@ -1,13 +1,9 @@
-import 'reflect-metadata';
 import { WallaceWikiParser } from './wallace-wiki-parser';
-import { container } from 'tsyringe';
 import { JSDOM } from 'jsdom';
-import { useDummyLogger } from '../test-helpers/use-dummy-logger';
 import { loadResource, ResourceName } from '../test-helpers/resource-loader';
+import { testInjector } from '../test-helpers/test-injector';
 
-useDummyLogger();
-
-const wallaceWikiParser = container.resolve(WallaceWikiParser);
+const wallaceWikiParser = testInjector.resolve('wallace-wiki-parser');
 
 describe(WallaceWikiParser.name, () => {
   it('should be able to parse annotations from a page', async () => {
