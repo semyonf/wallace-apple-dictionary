@@ -9,7 +9,7 @@
 ### Installation:
 
 1. Download the latest `Wallace.Dictionary.dictionary.zip` from [releases](https://github.com/semyonf/wallace-apple-dictionary/releases) (under 'Assets')
-2. Extract and move the extracted `.dictionary`-file to `~/Library/Dictionaries`, enable it in your Dictionary.app
+2. Extract and move the extracted `.dictionary`-direcory to `~/Library/Dictionaries`, enable it in your Dictionary.app
 
 ### Building from source:
 
