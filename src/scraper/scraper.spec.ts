@@ -2,13 +2,14 @@ import { JSDOM } from 'jsdom';
 import { Scraper } from './scraper';
 import stream from 'stream';
 import { testInjector } from '../test-helpers/test-injector';
+import { tokens } from '../tokens';
 
 beforeEach(() => jest.clearAllMocks());
 
-const scraper = testInjector.resolve('scraper');
-const taskQueue = testInjector.resolve('task-queue');
-const pageLoader = testInjector.resolve('page-dom-loader');
-const parser = testInjector.resolve('wallace-wiki-parser');
+const scraper = testInjector.resolve(tokens.scraper);
+const taskQueue = testInjector.resolve(tokens.taskQueue);
+const pageLoader = testInjector.resolve(tokens.pageDOMLoader);
+const parser = testInjector.resolve(tokens.wallaceWikiParser);
 
 describe(Scraper.prototype.scrapeAnnotations.name, () => {
   const loadPageDOMSpy = jest.spyOn(pageLoader, 'loadPageDOM');

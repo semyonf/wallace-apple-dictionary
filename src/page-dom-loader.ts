@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
 import type { Logger } from './logger';
+import { tokens } from './tokens';
 
 export class PageDOMLoader {
-  public static inject = ['logger'] as const;
+  public static inject = [tokens.logger] as const;
   constructor(private readonly logger: Logger) {}
 
   private readonly baseURL = 'https://infinitejest.wallacewiki.com';

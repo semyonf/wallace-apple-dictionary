@@ -3,6 +3,7 @@ import type { WallaceWikiParser } from '../wallace-wiki-parser/wallace-wiki-pars
 import stream from 'stream';
 import type { TaskQueue } from '../task-queue';
 import type { Logger } from '../logger';
+import { tokens } from '../tokens';
 
 enum PagePaths {
   Home = '/david-foster-wallace',
@@ -10,10 +11,10 @@ enum PagePaths {
 
 export class Scraper {
   public static inject = [
-    'page-dom-loader',
-    'wallace-wiki-parser',
-    'task-queue',
-    'logger',
+    tokens.pageDOMLoader,
+    tokens.wallaceWikiParser,
+    tokens.taskQueue,
+    tokens.logger,
   ] as const;
 
   constructor(

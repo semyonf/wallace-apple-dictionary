@@ -3,11 +3,12 @@ import { Logger } from './logger';
 import { PageDOMLoader } from './page-dom-loader';
 import { Scraper } from './scraper/scraper';
 import { TaskQueue } from './task-queue';
+import { tokens } from './tokens';
 import { WallaceWikiParser } from './wallace-wiki-parser/wallace-wiki-parser';
 
 export const appInjector = createInjector()
-  .provideClass('logger', Logger)
-  .provideClass('task-queue', TaskQueue)
-  .provideClass('wallace-wiki-parser', WallaceWikiParser)
-  .provideClass('page-dom-loader', PageDOMLoader)
-  .provideClass('scraper', Scraper);
+  .provideClass(tokens.logger, Logger)
+  .provideClass(tokens.taskQueue, TaskQueue)
+  .provideClass(tokens.wallaceWikiParser, WallaceWikiParser)
+  .provideClass(tokens.pageDOMLoader, PageDOMLoader)
+  .provideClass(tokens.scraper, Scraper);

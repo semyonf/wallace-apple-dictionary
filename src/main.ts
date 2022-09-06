@@ -1,6 +1,7 @@
 import { createWriteStream } from 'fs';
 import { AnnotationXMLBuilderStream } from './annotation-xml-builder-stream/annotation-xml-builder-stream';
 import { appInjector } from './app-injector';
+import { tokens } from './tokens';
 
 const [xmlFilePath] = process.argv.slice(2);
 
@@ -10,8 +11,8 @@ if (!xmlFilePath) {
 
 const outputStream = createWriteStream(xmlFilePath, 'utf-8');
 
-const scraper = appInjector.resolve('scraper');
-const logger = appInjector.resolve('logger');
+const scraper = appInjector.resolve(tokens.scraper);
+const logger = appInjector.resolve(tokens.logger);
 
 scraper
   .scrapeAnnotations()

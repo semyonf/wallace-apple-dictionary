@@ -2,8 +2,9 @@ import { WallaceWikiParser } from './wallace-wiki-parser';
 import { JSDOM } from 'jsdom';
 import { loadResource, ResourceName } from '../test-helpers/resource-loader';
 import { testInjector } from '../test-helpers/test-injector';
+import { tokens } from '../tokens';
 
-const wallaceWikiParser = testInjector.resolve('wallace-wiki-parser');
+const wallaceWikiParser = testInjector.resolve(tokens.wallaceWikiParser);
 
 describe(WallaceWikiParser.name, () => {
   it('should be able to parse annotations from a page', async () => {
