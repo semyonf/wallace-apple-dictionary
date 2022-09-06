@@ -7,8 +7,6 @@ name: Build release
 
 jobs:
   build:
-    permissions:
-      contents: write
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
