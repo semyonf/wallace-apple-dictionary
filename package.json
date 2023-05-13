@@ -7,7 +7,8 @@
     "lint": "eslint --fix src/**/*.ts",
     "postinstall": "rm -rf .git/hooks && ln -s $(pwd)/git-hooks .git/hooks",
     "start": "ts-node -T src/index",
-    "release": "standard-version"
+    "release": "standard-version",
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "*.{js,ts}": [
