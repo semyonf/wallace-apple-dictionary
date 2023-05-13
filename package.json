@@ -4,15 +4,16 @@
     "test": "jest",
     "test:cov": "jest --coverage",
     "format": "prettier --write 'src/**/*.{ts,js,css,md,json}'",
-    "lint": "eslint --fix .",
-    "postinstall": "rm -rf .git/hooks && ln -s $(pwd)/git-hooks .git/hooks"
+    "lint": "eslint --fix src/**/*.ts",
+    "postinstall": "rm -rf .git/hooks && ln -s $(pwd)/git-hooks .git/hooks",
+    "start": "ts-node -T src/index"
   },
   "lint-staged": {
     "*.{js,ts}": [
       "prettier --write",
       "eslint --fix"
     ],
-    "*.{md,json}": [
+    "*.{md,json,css}": [
       "prettier --write"
     ]
   },
