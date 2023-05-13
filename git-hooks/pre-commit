@@ -1,5 +1,4 @@
 #!/bin/sh
 
-yarn typecheck
-yarn lint-staged
-yarn test -o
+npm run lint-staged
+npm run test -o
