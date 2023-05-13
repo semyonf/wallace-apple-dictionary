@@ -24,4 +24,5 @@ jobs:
       - name: Create a release
         uses: softprops/action-gh-release@v1
         with:
+          body_path: CHANGELOG.md
           files: Wallace\ Dictionary.dictionary.zip
