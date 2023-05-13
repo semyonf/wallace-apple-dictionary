@@ -24,7 +24,7 @@ describe(Scraper.prototype.scrapeAnnotations.name, () => {
 
     const annotations = scraper.scrapeAnnotations();
 
-    // 'end' event will not fire unless the data is completely consumed
+    // 'end' event will not fire unless the data is completely consumed, see https://nodejs.org/api/stream.html#stream_event_end
     annotations.pipe(new stream.PassThrough());
 
     annotations.on('end', () => {
