@@ -6,7 +6,6 @@
     "format": "prettier --write 'src/**/*.{ts,js,css,md,json}'",
     "lint": "eslint --fix src/**/*.ts",
     "postinstall": "rm -rf .git/hooks && ln -s $(pwd)/git-hooks .git/hooks",
-    "start": "ts-node -T src/index",
     "release": "standard-version",
     "lint-staged": "lint-staged"
   },
