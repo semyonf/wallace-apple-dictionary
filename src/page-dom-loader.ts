@@ -32,7 +32,7 @@ export class PageDOMLoader {
   }
 
   private getPathToCache(path: string) {
-    return __dirname + `/../vendor/cache/${path.replace(/\//g, '_')}.html`;
+    return __dirname + `/../vendor/site-cache/${path.replace(/\//g, '_')}.html`;
   }
 
   private async loadPageHTML(path: string): Promise<string> {
