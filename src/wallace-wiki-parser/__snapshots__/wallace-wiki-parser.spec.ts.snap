@@ -53,6 +53,12 @@ Array [
     "title": "court-shaped",
   },
   Object {
+    "content": "Organization of North American Nations Collegiate Athletic Association -- presumably the future complement of the NCAA.
+        ",
+    "pageName": "Page 4",
+    "title": "O.N.A.N.C.A.A.",
+  },
+  Object {
     "content": "\\"A benign encysted tumor of the skin, esp. on the scalp, containing sebaceous matter; a sebaceous cyst\\" (Random House Unabridged Dictionary).",
     "pageName": "Page 4",
     "title": "wen",
@@ -121,6 +127,12 @@ Array [
     "content": "The Pacific 10 athletic conference, the other members of which are: Arizona State Univ., Univ. of California at Berkeley, Univ. of Oregon, Oregon State Univ., Stanford Univ., UCLA, USC, Univ. of Washington, and Washington State Univ.",
     "pageName": "Page 5",
     "title": "Pac 10",
+  },
+  Object {
+    "content": "\\"Kekuléan\\" is not a type of knot. To Hal, the knot he is focusing on resembles the self-consuming, annular shape of the snake that inspired August Kekulé's discovery of benzene's molecular structure. August Kekule (1829-1896), a renowned German organic chemist, was the principal founder of the theory of chemical structure.  His most famous work, the discovery of benzene molecule's structure, is said to be inspired by a dream.  \\"Kekulé's Dream\\" was that of a self-devouring snake, the shape of which he used to describe the benzene ring. Hal's intense focus on this annular, or ring-like, part of the tie is the first reference to annular shapes.
+        ",
+    "pageName": "Page 5",
+    "title": "\\"I stare carefully into the Kekuléan knot of the middle Dean's necktie.\\"",
   },
   Object {
     "content": "Judging from the way the words sound when spoken.",
@@ -408,6 +420,12 @@ Array [
     "title": "enfilade",
   },
   Object {
+    "content": "Synecdoche for the the fictional \\"WhataBurger Southwest Junior Invitational,\\" an annual juniors' tennis tournament held in the novel in Tucson, AZ.  (A Corpus Christi invention, Whataburger® is a well-established local burger chain in Phoenix (with 28 franchisees in AZ in 2009) but whose real fan base hails from Texas.)
+        ",
+    "pageName": "Page 14",
+    "title": "Whataburger",
+  },
+  Object {
     "content": "Sticky, thick and liquid.",
     "pageName": "Page 14",
     "title": "viscous",
@@ -518,7 +536,9 @@ Array [
     "title": "Dymphna",
   },
   Object {
-    "content": "Petropolis is Greek for \\"city of stone\\" or \\"city of Peter.\\" Petrópolis is a city in Brazil near Rio de Janeiro. A treaty was signed there on November 11, 1903, ending hostilities between Bolivia and Brazil.",
+    "content": "Petropolis is Greek for \\"city of stone\\" or \\"city of Peter.\\" Petrópolis is a city in Brazil near Rio de Janeiro. A treaty was signed there on November 11, 1903, ending hostilities between Bolivia and Brazil.
+\\"Kahn\\" is a variant on the Jewish name for a priest, i.e., kohen.
+        ",
     "pageName": "Page 17",
     "title": "Petropolis Kahn",
   },
@@ -526,6 +546,13 @@ Array [
     "content": "the cause of a disease",
     "pageName": "Page 17",
     "title": "etiology",
+  },
+  Object {
+    "content": "Adjective meaning either relating to the surgical restoration of a lost or absent part or
+          relating to or characterized by cells that have become less differentiated/primitive.
+        ",
+    "pageName": "Page 17",
+    "title": "anaplastic",
   },
   Object {
     "content": "a technique of teaching by asking students questions, attributed to Socrates' pedagogy in ancient Greece",

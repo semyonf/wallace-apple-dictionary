@@ -14,19 +14,24 @@ RM = /bin/rm
 
 all: scrape
 	"$(DICT_BUILD_TOOL_BIN)/build_dict.sh" $(DICT_NAME) $(DICT_SRC_PATH) $(CSS_PATH) $(PLIST_PATH)
-	echo "Done."
+	@echo "Done."
 
 scrape:
-	/usr/bin/env node -r ts-node/register/transpile-only ./src/main.ts $(DICT_SRC_PATH)
+	@if [ ! -f $(DICT_SRC_PATH) ]; then \
+		/usr/bin/env node -r ts-node/register/transpile-only ./src/main.ts $(DICT_SRC_PATH); \
+	else \
+		echo "Skipping scraping."; \
+	fi
 
 install:
+	killall Dictionary || true
 	$(RM) -rf $(DESTINATION_FOLDER)/$(DICT_NAME).dictionary
-	echo "Installing into $(DESTINATION_FOLDER)".
+	@echo "Installing into $(DESTINATION_FOLDER)".
 	mkdir -p $(DESTINATION_FOLDER)
 	ditto --noextattr --norsrc $(DICT_DEV_KIT_OBJ_DIR)/$(DICT_NAME).dictionary  $(DESTINATION_FOLDER)/$(DICT_NAME).dictionary
 	touch $(DESTINATION_FOLDER)
-	echo "Done."
-	echo "To test the new dictionary, try Dictionary.app."
+	@echo "Done."
+	open -a Dictionary
 
 clean:
 	$(RM) -rf $(DICT_DEV_KIT_OBJ_DIR)

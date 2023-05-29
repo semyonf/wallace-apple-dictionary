@@ -27,24 +27,58 @@ export class WallaceWikiParser {
     return pathsToPagesWithAnnotations;
   }
 
+  // TODO: Refactor
   parseAnnotations(dom: JSDOM): Annotation[] {
     const elements = this.parseDOMIntoElements(
       dom,
-      '//*/*[self::p[b] or self::h2][preceding-sibling::h1]',
+      '//*/*[self::div[b and not(@class)] or self::p[preceding-sibling::div[b and not(@class)]] or self::p[b or preceding-sibling::p[not(br)]] or self::b[following-sibling::br] or self::h2][preceding-sibling::h1]',
     );
 
     const annotations: Annotation[] = [];
     let pageName: string | null = null;
+    let previousElement: Element | null = null;
+    let lastAnnotation: Annotation | null = null;
+    let savedTitle: string | null = null;
+    let annotationIsBeingParsed = false;
 
     for (const element of elements) {
-      if (!element?.textContent) {
-        this.logger.warn('Invalid element encountered, skipping');
+      if (!element.textContent?.trim()) {
+        continue;
+      }
+
+      if (element.tagName === 'DIV' || element.tagName === 'B') {
+        previousElement = element;
+        savedTitle = element.textContent;
+        annotationIsBeingParsed = true;
+
+        continue;
+      }
+
+      if (
+        element.tagName === 'P' &&
+        (previousElement?.tagName === 'DIV' ||
+          previousElement?.tagName === 'B' ||
+          previousElement?.tagName === 'P') &&
+        savedTitle &&
+        pageName &&
+        annotationIsBeingParsed
+      ) {
+        annotations.push({
+          title: savedTitle,
+          content: element.textContent,
+          pageName,
+        });
+
+        annotationIsBeingParsed = false;
+        previousElement = element;
 
         continue;
       }
 
       if (element.tagName === 'H2') {
         pageName = element.textContent;
+        previousElement = null;
+        annotationIsBeingParsed = false;
 
         continue;
       }
@@ -53,17 +87,46 @@ export class WallaceWikiParser {
         throw new Error(`Current page is unknown`);
       }
 
-      // todo handle extra newlines, use various strategies
       const [title, content] = element.textContent
         .split('\n')
         .map((text) => text.trim());
 
       if (content && title) {
-        annotations.push({ title, content, pageName });
+        const annotation = { title, content, pageName };
+        annotations.push(annotation);
+
+        lastAnnotation = annotation;
+        previousElement = element;
       } else {
+        if (
+          previousElement?.tagName === 'P' &&
+          lastAnnotation &&
+          element.textContent.trim() !== '' &&
+          !element.innerHTML.includes('<b>') &&
+          !annotationIsBeingParsed
+        ) {
+          lastAnnotation.content += `\n${element.textContent}`;
+          previousElement = null;
+          annotationIsBeingParsed = false;
+
+          continue;
+        }
+
+        if (title && !content && !annotationIsBeingParsed) {
+          savedTitle = title;
+          annotationIsBeingParsed = true;
+          previousElement = element;
+          continue;
+        }
+
         this.logger.warn(
           `Could not parse annotation <${element.textContent}> @ ${pageName}`,
         );
+
+        previousElement = null;
+        annotationIsBeingParsed = false;
+        savedTitle = null;
+        lastAnnotation = null;
       }
     }
 

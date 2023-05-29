@@ -13,7 +13,8 @@
 	<key>DCSDictionaryManufacturerName</key>
 	<string>Semyon Fomin</string>
 	<key>DCSDictionaryCopyright</key>
-	<string>Semyon Fomin • https://github.com/semyonf/wallace-apple-dictionary</string>
+	<string>Semyón Fomín • https://github.com/semyonf/wallace-apple-dictionary
+	Definitions parsed from https://infinitejest.wallacewiki.com</string>
 	<key>DCSDictionaryUseSystemAppearance</key>
 	<true/>
 </dict>
