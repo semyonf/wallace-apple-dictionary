@@ -42,6 +42,7 @@ export class AnnotationXMLBuilderStream extends Transform {
     callback();
   }
 
+  // TODO: refactor
   private getAnnotationXmlObject(annotation: Annotation): xml.XmlObject {
     return {
       'd:entry': [
@@ -55,6 +56,13 @@ export class AnnotationXMLBuilderStream extends Transform {
           },
         },
         { 'd:index': [{ _attr: { 'd:value': annotation.title } }] },
+        !annotation.title.includes('.')
+          ? {}
+          : {
+              'd:index': [
+                { _attr: { 'd:value': annotation.title.split('.').join('') } },
+              ],
+            },
         { 'd:index': [{ _attr: { 'd:value': annotation.pageName } }] },
         { b: annotation.title },
         { div: [{ _attr: { class: 'd-page' } }, annotation.pageName] },
