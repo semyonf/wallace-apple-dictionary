@@ -5,7 +5,6 @@ sonar-project.properties
 .vscode
 objects
 build
-cache
 
 # Logs
 logs

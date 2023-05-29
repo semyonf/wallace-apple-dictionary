@@ -1,3 +1,2 @@
 src/test-helpers/resources/** linguist-detectable=false
 vendor/** linguist-detectable=false
-cache/* linguist-detectable=false
