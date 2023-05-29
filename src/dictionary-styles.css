@@ -9,7 +9,6 @@
 p {
   margin-top: 5px;
   font-style: italic;
-  border-bottom: 1px solid lightgrey;
 }
 
 @media (prefers-color-scheme: dark) {
