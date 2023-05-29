@@ -6,7 +6,7 @@ PLIST_PATH =	"src/dictionary-info.plist"
 DICT_BUILD_TOOL_DIR =	"./vendor/Dictionary Development Kit"
 DICT_BUILD_TOOL_BIN =	"$(DICT_BUILD_TOOL_DIR)/bin"
 
-DICT_DEV_KIT_OBJ_DIR =	./objects
+DICT_DEV_KIT_OBJ_DIR =	./build/objects
 export	DICT_DEV_KIT_OBJ_DIR
 
 DESTINATION_FOLDER = ~/Library/Dictionaries
