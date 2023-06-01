@@ -1,9 +1,9 @@
 import { Transform, TransformCallback } from 'stream';
 import xml from 'xml';
-import type { Annotation } from '../annotation';
+import type { DictionaryEntry } from '../dictionary-entry';
 import { snakeCase } from 'snake-case';
 
-export class AnnotationXMLBuilderStream extends Transform {
+export class DictionaryXMLBuilderStream extends Transform {
   private xmlChunkId = 0;
 
   private readonly rootXmlElement = xml.element({
@@ -33,40 +33,46 @@ export class AnnotationXMLBuilderStream extends Transform {
   }
 
   override _transform(
-    annotation: Annotation,
+    dictionaryEntry: DictionaryEntry,
     _encoding: BufferEncoding,
     callback: TransformCallback,
   ): void {
-    this.rootXmlElement.push(this.getAnnotationXmlObject(annotation));
+    this.rootXmlElement.push(this.getDictionaryEntryXmlObject(dictionaryEntry));
     this.xmlChunkId++;
     callback();
   }
 
   // TODO: refactor
-  private getAnnotationXmlObject(annotation: Annotation): xml.XmlObject {
+  private getDictionaryEntryXmlObject({
+    definition,
+    pageName,
+    term,
+  }: DictionaryEntry): xml.XmlObject {
     return {
       'd:entry': [
         {
           _attr: {
-            id: snakeCase(
-              `${annotation.title} ${annotation.pageName} ${this.xmlChunkId}`,
-            ),
-            'd:title': annotation.title,
+            id: snakeCase(`${term} ${pageName} ${this.xmlChunkId}`),
+            'd:title': term,
             'd:parental-control': 1,
           },
         },
-        { 'd:index': [{ _attr: { 'd:value': annotation.title } }] },
-        !annotation.title.includes('.')
+        { 'd:index': [{ _attr: { 'd:value': term } }] },
+        !term.includes('.')
           ? {}
           : {
               'd:index': [
-                { _attr: { 'd:value': annotation.title.split('.').join('') } },
+                {
+                  _attr: {
+                    'd:value': term.split('.').join(''),
+                  },
+                },
               ],
             },
-        { 'd:index': [{ _attr: { 'd:value': annotation.pageName } }] },
-        { b: annotation.title },
-        { div: [{ _attr: { class: 'd-page' } }, annotation.pageName] },
-        { p: annotation.content },
+        { 'd:index': [{ _attr: { 'd:value': pageName } }] },
+        { b: term },
+        { div: [{ _attr: { class: 'd-page' } }, pageName] },
+        { p: definition },
       ],
     };
   }

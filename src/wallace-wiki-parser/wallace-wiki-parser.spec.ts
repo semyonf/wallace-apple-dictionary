@@ -7,21 +7,25 @@ import { tokens } from '../tokens';
 const wallaceWikiParser = testInjector.resolve(tokens.wallaceWikiParser);
 
 describe(WallaceWikiParser.name, () => {
-  it('should be able to parse annotations from a page', async () => {
-    const pageHTML = await loadResource(ResourceName.RawPageWithDefinitions);
+  it('should be able to parse dictionary entries from a page', async () => {
+    const pageHTML = await loadResource(
+      ResourceName.RawPageWithDictionaryEntries,
+    );
     const pageDOM = new JSDOM(pageHTML, { url: 'http://localhost' });
 
-    const parsedAnnotations = wallaceWikiParser.parseAnnotations(pageDOM);
+    const parsedDictionaryEntries =
+      wallaceWikiParser.parseDictionaryEntries(pageDOM);
 
-    expect(parsedAnnotations).toMatchSnapshot();
+    expect(parsedDictionaryEntries).toMatchSnapshot();
   });
 
   it('should be able to parse table of contents', async () => {
     const pageHTML = await loadResource(ResourceName.RawHomePage);
     const pageDOM = new JSDOM(pageHTML, { url: 'http://localhost' });
 
-    const parsedTOC = wallaceWikiParser.parseTableOfContents(pageDOM);
+    const parsedTableOfContents =
+      wallaceWikiParser.parseTableOfContents(pageDOM);
 
-    expect(parsedTOC).toMatchSnapshot();
+    expect(parsedTableOfContents).toMatchSnapshot();
   });
 });

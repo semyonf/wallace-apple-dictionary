@@ -1,5 +1,5 @@
 import { createWriteStream } from 'fs';
-import { AnnotationXMLBuilderStream } from './annotation-xml-builder-stream/annotation-xml-builder-stream';
+import { DictionaryXMLBuilderStream } from './dictionary-xml-builder-stream/dictionary-xml-builder-stream';
 import { appInjector } from './app-injector';
 import { tokens } from './tokens';
 
@@ -15,8 +15,8 @@ const scraper = appInjector.resolve(tokens.scraper);
 const logger = appInjector.resolve(tokens.logger);
 
 scraper
-  .scrapeAnnotations()
-  .pipe(new AnnotationXMLBuilderStream())
+  .scrapeDictionaryEntries()
+  .pipe(new DictionaryXMLBuilderStream())
   .pipe(outputStream)
   .on('close', () => logger.log('- XML IS READY'))
   .on('error', (e) => {

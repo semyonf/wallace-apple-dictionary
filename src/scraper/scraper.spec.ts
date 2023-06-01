@@ -11,7 +11,7 @@ const taskQueue = testInjector.resolve(tokens.taskQueue);
 const pageLoader = testInjector.resolve(tokens.pageDOMLoader);
 const parser = testInjector.resolve(tokens.wallaceWikiParser);
 
-describe(Scraper.prototype.scrapeAnnotations.name, () => {
+describe(Scraper.prototype.scrapeDictionaryEntries.name, () => {
   const loadPageDOMSpy = jest.spyOn(pageLoader, 'loadPageDOM');
   const queueAddSpy = jest.spyOn(taskQueue, 'add');
   const parseTableOfContentsSpy = jest.spyOn(parser, 'parseTableOfContents');
@@ -22,12 +22,12 @@ describe(Scraper.prototype.scrapeAnnotations.name, () => {
     parseTableOfContentsSpy.mockReturnValueOnce(urls);
     loadPageDOMSpy.mockReturnValue(Promise.resolve(new JSDOM()));
 
-    const annotations = scraper.scrapeAnnotations();
+    const dictionaryEntries = scraper.scrapeDictionaryEntries();
 
     // 'end' event will not fire unless the data is completely consumed, see https://nodejs.org/api/stream.html#stream_event_end
-    annotations.pipe(new stream.PassThrough());
+    dictionaryEntries.pipe(new stream.PassThrough());
 
-    annotations.on('end', () => {
+    dictionaryEntries.on('end', () => {
       expect(queueAddSpy).toHaveBeenCalledTimes(urls.length);
       expect(loadPageDOMSpy).toHaveBeenCalledTimes(urls.length + 1);
       done();

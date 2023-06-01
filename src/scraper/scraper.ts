@@ -24,47 +24,57 @@ export class Scraper {
     private readonly logger: Logger,
   ) {}
 
-  scrapeAnnotations(): stream.Readable {
-    const streamOfAnnotations = new stream.PassThrough({ objectMode: true });
+  scrapeDictionaryEntries(): stream.Readable {
+    const dictionaryEntriesStream = new stream.PassThrough({
+      objectMode: true,
+    });
 
-    this.scrapeAnnotationsToStream(streamOfAnnotations)
-      .then(() => streamOfAnnotations.end())
-      .catch((e: Error) => streamOfAnnotations.emit('error', e));
+    this.scrapeDictionaryEntriesToStream(dictionaryEntriesStream)
+      .then(() => dictionaryEntriesStream.end())
+      .catch((e: Error) => dictionaryEntriesStream.emit('error', e));
 
-    return streamOfAnnotations;
+    return dictionaryEntriesStream;
   }
 
-  private async scrapeAnnotationsToStream(
-    annotationsStream: stream.Readable,
+  private async scrapeDictionaryEntriesToStream(
+    dictionaryEntriesStream: stream.Readable,
   ): Promise<void> {
     const homePageDOM = await this.pageLoader.loadPageDOM(PagePaths.Home);
     const pathsToPages =
       this.wallaceWikiParser.parseTableOfContents(homePageDOM);
 
-    await this.scrapeAnnotationsFromPages(pathsToPages, annotationsStream);
+    await this.scrapeDictionaryEntriesFromPages(
+      pathsToPages,
+      dictionaryEntriesStream,
+    );
   }
 
-  private async scrapeAnnotationsFromPages(
+  private async scrapeDictionaryEntriesFromPages(
     pathsToPages: string[],
-    annotationsStream: stream.Readable,
+    dictionaryEntriesStream: stream.Readable,
   ): Promise<void> {
     await Promise.all(
       pathsToPages.map((path) =>
-        this.taskQueue.add(this.createScrapingTask(path, annotationsStream)),
+        this.taskQueue.add(
+          this.createScrapingTask(path, dictionaryEntriesStream),
+        ),
       ),
     );
   }
 
-  private createScrapingTask(path: string, annotationsStream: stream.Readable) {
+  private createScrapingTask(
+    path: string,
+    dictionaryEntriesStream: stream.Readable,
+  ) {
     return async () => {
       const pageDOM = await this.pageLoader.loadPageDOM(path);
-      const parsedAnnotations =
-        this.wallaceWikiParser.parseAnnotations(pageDOM);
+      const parsedDictionaryEntries =
+        this.wallaceWikiParser.parseDictionaryEntries(pageDOM);
 
-      this.logger.log(`- Parsed annotations from ${path}`);
+      this.logger.log(`- Parsed dictionary entries from ${path}`);
 
-      parsedAnnotations.forEach((annotation) =>
-        annotationsStream.push(annotation),
+      parsedDictionaryEntries.forEach((dictionaryEntry) =>
+        dictionaryEntriesStream.push(dictionaryEntry),
       );
     };
   }

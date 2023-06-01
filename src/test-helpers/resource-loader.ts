@@ -5,9 +5,9 @@ const resourceRoot = `${__dirname}/resources/`;
 const resourceCache = new Map<string, string>();
 
 export enum ResourceName {
-  RawPageWithDefinitions = 'raw-page-with-definitions.html',
+  RawPageWithDictionaryEntries = 'raw-page-with-dictionary-entries.html',
   RawHomePage = 'raw-home-page.html',
-  SingleAnnotation = 'parsed-annotation-stub.xml',
+  ParsedDictionaryEntryXml = 'parsed-dictionary-entry-stub.xml',
 }
 
 assertResourcesArePresentSync();
