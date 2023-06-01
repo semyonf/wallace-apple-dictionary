@@ -61,9 +61,8 @@ export class WallaceWikiParser {
 
       if (
         domElement.tagName === 'P' &&
-        (previousElement?.tagName === 'DIV' ||
-          previousElement?.tagName === 'B' ||
-          previousElement?.tagName === 'P') &&
+        previousElement &&
+        ['DIV', 'B', 'P'].includes(previousElement.tagName) &&
         savedTerm &&
         pageName &&
         dictionaryEntryIsBeingParsed
@@ -97,7 +96,7 @@ export class WallaceWikiParser {
         .map((text) => text.trim());
 
       if (term && definition) {
-        const dictionaryEntry = { term, definition, pageName };
+        const dictionaryEntry: DictionaryEntry = { term, definition, pageName };
         dictionaryEntries.push(dictionaryEntry);
         lastDictionaryEntry = dictionaryEntry;
         previousElement = domElement;

@@ -48,32 +48,35 @@ export class DictionaryXMLBuilderStream extends Transform {
     pageName,
     term,
   }: DictionaryEntry): xml.XmlObject {
-    return {
-      'd:entry': [
-        {
-          _attr: {
-            id: snakeCase(`${term} ${pageName} ${this.xmlChunkId}`),
-            'd:title': term,
-            'd:parental-control': 1,
-          },
+    const body: Array<Record<string, xml.XmlDesc>> = [
+      { b: term },
+      { div: [{ _attr: { class: 'd-page' } }, pageName] },
+      { p: definition },
+    ];
+
+    const indexes: Array<Record<'d:index', xml.XmlDesc>> = [
+      { 'd:index': [{ _attr: { 'd:value': term } }] },
+      { 'd:index': [{ _attr: { 'd:value': pageName } }] },
+    ];
+
+    if (term.includes('.')) {
+      indexes.push({
+        'd:index': [{ _attr: { 'd:value': term.split('.').join('') } }],
+      });
+    }
+
+    const dictionaryXmlEntry: xml.XmlObject = [
+      {
+        _attr: {
+          id: snakeCase(`${term} ${pageName} ${this.xmlChunkId}`),
+          'd:title': term,
+          'd:parental-control': 1,
         },
-        { 'd:index': [{ _attr: { 'd:value': term } }] },
-        !term.includes('.')
-          ? {}
-          : {
-              'd:index': [
-                {
-                  _attr: {
-                    'd:value': term.split('.').join(''),
-                  },
-                },
-              ],
-            },
-        { 'd:index': [{ _attr: { 'd:value': pageName } }] },
-        { b: term },
-        { div: [{ _attr: { class: 'd-page' } }, pageName] },
-        { p: definition },
-      ],
-    };
+      },
+      ...indexes,
+      ...body,
+    ];
+
+    return { 'd:entry': dictionaryXmlEntry };
   }
 }
