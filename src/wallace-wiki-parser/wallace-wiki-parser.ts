@@ -27,6 +27,7 @@ export class WallaceWikiParser {
     return pathsToPagesWithDictionaryEntries;
   }
 
+  // TODO: refactor
   parseDictionaryEntries(dom: JSDOM): DictionaryEntry[] {
     const xPathExpression =
       '//*/*[' +
