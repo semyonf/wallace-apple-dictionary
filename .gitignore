@@ -5,6 +5,7 @@ sonar-project.properties
 .vscode
 objects
 build
+.stryker-tmp
 
 # Logs
 logs

@@ -3,6 +3,7 @@
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:cov": "jest --coverage",
+    "stryker": "stryker run",
     "format": "prettier --write 'src/**/*.{ts,js,css,md,json}'",
     "lint": "eslint --fix src/**/*.ts",
     "postinstall": "rm -rf .git/hooks && ln -s $(pwd)/git-hooks .git/hooks",
@@ -36,6 +37,9 @@
     "xml": "1.0.1"
   },
   "devDependencies": {
+    "@stryker-mutator/core": "7.1.1",
+    "@stryker-mutator/jest-runner": "7.1.1",
+    "@stryker-mutator/typescript-checker": "7.1.1",
     "@tsconfig/node16-strictest": "1.0.1",
     "@types/jest": "27.0.3",
     "@types/jsdom": "16.2.13",
