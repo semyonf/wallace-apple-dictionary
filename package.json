@@ -6,7 +6,7 @@
     "stryker": "stryker run",
     "format": "prettier --write 'src/**/*.{ts,js,css,md,json}'",
     "lint": "eslint --fix src/**/*.ts",
-    "prepare": "git config core.hooksPath .git-hooks || echo 'Not in a git repo'",
+    "prepare": "git config core.hooksPath git-hooks || echo 'Not in a git repo'",
     "release": "standard-version",
     "lint-staged": "lint-staged"
   },
