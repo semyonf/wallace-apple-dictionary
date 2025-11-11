@@ -19,9 +19,3 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run test:cov
-
-      - name: CodeClimate
-        if: ${{ github.ref == 'refs/heads/master' }}
-        uses: paambaati/codeclimate-action@v2.7.5
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}

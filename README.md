@@ -1,6 +1,4 @@
 ![master](https://github.com/semyonf/wallace-apple-dictionary/actions/workflows/ci.yml/badge.svg?branch=master)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a6c5b5bd1a51e4472891/test_coverage)](https://codeclimate.com/github/semyonf/wallace-apple-dictionary/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/a6c5b5bd1a51e4472891/maintainability)](https://codeclimate.com/github/semyonf/wallace-apple-dictionary/maintainability)
 
 ## macOS Dictionary scraped from David Foster Wallace Wiki : Infinite Jest
 
