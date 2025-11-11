@@ -42,41 +42,64 @@ export class DictionaryXMLBuilderStream extends Transform {
     callback();
   }
 
-  // TODO: refactor
-  private getDictionaryEntryXmlObject({
-    definition,
-    pageName,
-    term,
-  }: DictionaryEntry): xml.XmlObject {
-    const body: Array<Record<string, xml.XmlDesc>> = [
+  private getDictionaryEntryXmlObject(
+    dictionaryEntry: DictionaryEntry,
+  ): xml.XmlObject {
+    const { term, pageName, definition } = dictionaryEntry;
+    const body = this.buildEntryBody(term, pageName, definition);
+    const indexes = this.buildEntryIndexes(term, pageName);
+    const attributes = this.buildEntryAttributes(term, pageName);
+
+    const dictionaryXmlEntry: xml.XmlObject = [
+      { _attr: attributes },
+      ...indexes,
+      ...body,
+    ];
+
+    return { 'd:entry': dictionaryXmlEntry };
+  }
+
+  private buildEntryBody(
+    term: string,
+    pageName: string,
+    definition: string,
+  ): Array<Record<string, xml.XmlDesc>> {
+    return [
       { b: term },
       { div: [{ _attr: { class: 'd-page' } }, pageName] },
       { p: definition },
     ];
+  }
 
+  private buildEntryIndexes(
+    term: string,
+    pageName: string,
+  ): Array<Record<'d:index', xml.XmlDesc>> {
     const indexes: Array<Record<'d:index', xml.XmlDesc>> = [
       { 'd:index': [{ _attr: { 'd:value': term } }] },
       { 'd:index': [{ _attr: { 'd:value': pageName } }] },
     ];
 
     if (term.includes('.')) {
-      indexes.push({
-        'd:index': [{ _attr: { 'd:value': term.split('.').join('') } }],
-      });
+      indexes.push(this.buildDotlessTermIndex(term));
     }
 
-    const dictionaryXmlEntry: xml.XmlObject = [
-      {
-        _attr: {
-          id: snakeCase(`${term} ${pageName} ${this.xmlChunkId}`),
-          'd:title': term,
-          'd:parental-control': 1,
-        },
-      },
-      ...indexes,
-      ...body,
-    ];
+    return indexes;
+  }
 
-    return { 'd:entry': dictionaryXmlEntry };
+  private buildDotlessTermIndex(term: string): Record<'d:index', xml.XmlDesc> {
+    const termWithoutDots = term.split('.').join('');
+    return { 'd:index': [{ _attr: { 'd:value': termWithoutDots } }] };
+  }
+
+  private buildEntryAttributes(
+    term: string,
+    pageName: string,
+  ): Record<string, string | number> {
+    return {
+      id: snakeCase(`${term} ${pageName} ${this.xmlChunkId}`),
+      'd:title': term,
+      'd:parental-control': 1,
+    };
   }
 }
